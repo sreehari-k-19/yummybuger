@@ -1,0 +1,230 @@
+
+.checkout {}
+
+.checkout-head h2 {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 53px;
+    letter-spacing: 0.933333px;
+    color: #fff;
+}
+
+.delivery-section {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+}
+
+
+.delivery-section h3 {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 41px;
+    letter-spacing: 0.06em;
+    color: #fff;
+}
+
+.checkout .btnaddress {
+    width: 131.94px;
+    height: 38px;
+    border: 1px solid #FAA41A;
+    border-radius: 5px;
+
+}
+
+.payement-selection h4{
+    color: #fff;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+}
+.payement-selection p{
+    color: #fff;
+   
+}
+
+.checkout .newaddress {
+    background-color: #000;
+    color: #FAA41A;
+}
+
+.checkout .new-address-s {
+    background-color: #FAA41A;
+    color: #000;
+}
+
+.checkout .savedaddress {
+    background-color: #FAA41A;
+    color: #000;
+}
+
+.savedaddress-box {
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    min-width: 282px;
+    min-height: 98px;
+    left: 124px;
+    border: 1px solid #FFBA00;
+    border-radius: 8px;
+}
+
+/* .savedaddress-box input {
+    position: absolute;
+    right: 10px;
+} */
+.savedaddress-section {
+    display: flex;
+    flex-direction: column;
+    min-width: 220px;
+    max-width: 220px;
+}
+
+.savedaddress-box .address-details {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.savedaddress-box input:focus+label {
+    outline: 2px dotted #FFBA00;
+}
+
+.savedaddress-box input:checked+label {
+    outline: 4px solid #FFBA00;
+}
+
+.payement-method-s p {
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.payement-method-s .cashon {
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.razorpay img {
+    height: 30px;
+}
+
+.paytm img {
+    height: 35px;
+}
+
+.checkout-cnfrm {
+    min-width: 151.49px;
+    min-height: 33.76px;
+    background-color: #FAA41A;
+    color: #000;
+    border-color: #FAA41A;
+    border-radius: 28px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px
+}
+.checkout-cnfrm :hover{
+   
+    background-color: #FAA41A;
+    color: #000;
+    
+}
+
+.checkout-cancel {
+    min-width: 151.49px;
+    min-height: 33.76px;
+    border-color: #FAA41A;
+    background-color: #000;
+    color: #FAA41A;
+    border-radius: 28px;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px
+}
+
+.order-summary {
+    padding: 30px;
+    width: 404px;
+    min-height: 324px;
+    background: #171717;
+    border-radius: 25px;
+    border: 1px solid #252525;
+}
+
+.order-summary h3 {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 44px;
+    letter-spacing: 0.933333px;
+    color: #FFFFFF;
+}
+
+.order-summary input {
+    width: 230px;
+    height: 30px;
+    background: #171717;
+    border: 1px solid #FAA41A;
+    border-radius: 8px;
+}
+
+.order-summary .coupon {
+    border-bottom: 2px solid #000;
+}
+
+.coupon-button {
+    background-color: #FAA41A;
+    color: #000;
+    border-radius: 8px;
+    width: 90px;
+    height: 30px;
+    font-style: normal;
+    font-weight: 500;
+    border: 1px solid #FAA41A;
+    font-size: 15px;
+}
+
+.order-summary .order-item img {
+    height: 40px;
+}
+
+.order-summary .order-item {
+    display: flex;
+
+}
+
+.order-summary .order-item .order-itemimg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: #080808;
+    border-radius: 8px;
+
+}
+
+.order-summary .total-price {
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-address {
+    width: 444.12px;
+}
+
+.new-address-name,
+.new-address-cty,
+.new-address-contact {
+    display: flex;
+    justify-content: space-between;
+}
+

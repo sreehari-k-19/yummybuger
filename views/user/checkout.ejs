@@ -1,0 +1,698 @@
+<div class="container-fluid navfull">
+    <%- include('../partials/user-navbar.ejs') %>
+
+        <div style=" display: flex;justify-content: center; margin-top: 7rem;">
+            <div class="checkout">
+                <div class="checkout-head">
+                    <h2>CHECKOUT</h2>
+                </div>
+                <div class="delivery-section">
+                    <div>
+                        <h3>DELIVERY OPTION</h3>
+                        <div class="delivery-details">
+                            <div class="address-button my-3">
+                                <button class="btnaddress newaddress mx-2" style="padding: 0;" id="newadd">
+                                    New Address
+                                </button>
+                                <button class="btnaddress savedaddress mx-2" id="savedbtn" style="padding: 0;">
+                                    Saved Address
+                                </button>
+                            </div>
+                            <form id="checkoutform">
+                                <div class="savedaddress-section my-3" id="saved">
+                                    <%if(address){%>
+                                        <%address.forEach((element,i)=>{%>
+                                            <label>
+                                                <div class="savedaddress-box my-3">
+                                                    <input style="
+                                        display: block !important; 
+                                       " type="radio" name="addressr" onfocus="removeError('selectAdresserror')"
+                                                        value="<%=i%>" id="address<%=i%>" />
+                                                    <div class="address-details">
+                                                        <%=element.firstname%>
+                                                    </div>
+                                                    <div class="address-details">
+                                                        <%=element.address%>,<span>
+                                                                <%=element.pincode%>
+                                                            </span>
+                                                    </div>
+                                                    <div class="address-details">
+                                                        <%=element.state%>, <span>
+                                                                <%=element.city%>
+                                                            </span>
+                                                    </div>
+                                                    <div class="address-details">
+                                                        <%=element. phonenum%>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                            <%})%>
+                                                <p id="selectAdresserror" style="display: none; margin: 0;color: red;">
+                                                </p>
+
+                                                <%}else{%>
+                                                    <h3>No saved address.Please add new address</h3>
+                                                    <%}%>
+
+                                </div>
+
+
+
+                                <div class="new-address" id="newaddIn">
+                                    <div>
+                                        <div class="new-address-name">
+                                            <div class="form-floating m-2">
+                                                <input type="text" class="form-control" id="firstnamedl"
+                                                    placeholder="First name" name="pincode"
+                                                    onfocus="removeError('pincode-error')"
+                                                    onfocusout="validatePincode()" required disabled />
+                                                <p id="pincode-error" style="display: none; margin: 0;color: red;"></p>
+                                                <label for="floatingInput">Pincode</label>
+                                            </div>
+                                            <div class="form-floating m-2">
+                                                <input type="text" class="form-control" id="lastnamedl"
+                                                    placeholder="First name" name="firstname"
+                                                    onfocus="removeError('name-error')" onfocusout="validateName()"
+                                                    required disabled />
+                                                <p id="name-error" style="display: none; margin: 0;color: red;"></p>
+                                                <label for="floatingInput">full name</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-floating m-2">
+                                            <input type="text" class="form-control" id="addressdl" required
+                                                placeholder="First name" name="address"
+                                                onfocus="removeError('address-error')" onfocusout="validateAddress()"
+                                                disabled />
+                                            <p id="address-error" style="display: none; margin: 0;color: red;"></p>
+                                            <label for="floatingInput">Address</label>
+                                        </div>
+                                        <div class="new-address-cty">
+                                            <div class="form-floating m-2">
+                                                <input type="text" class="form-control" id="pincodedl"
+                                                    placeholder="First name" name="landmark"
+                                                    onfocus="removeError('landmark-error')"
+                                                    onfocusout="validatelandmark()" required disabled />
+                                                <p id="landmark-error" style="display: none; margin: 0;color: red;"></p>
+                                                <label for="floatingInput">landmark</label>
+                                            </div>
+                                            <div class="form-floating m-2">
+                                                <input type="text" class="form-control" id="citydl"
+                                                    placeholder="First name" name="city"
+                                                    onfocus="removeError('city-error')" onfocusout="validateCity()"
+                                                    required disabled />
+                                                <p id="city-error" style="display: none; margin: 0;color: red;"></p>
+                                                <label for="floatingInput">City</label>
+                                            </div>
+                                            <div class="form-floating m-2">
+                                                <input type="text" class="form-control" id="statedl"
+                                                    placeholder="First name" name="state"
+                                                    onfocus="removeError('state-error')" onfocusout="validateState()"
+                                                    required disabled />
+                                                <label for="floatingInput">State</label>
+                                                <p id="state-error" style="display: none; margin: 0;color: red;"></p>
+                                            </div>
+
+                                        </div>
+                                        <div class="new-address-contact">
+                                            <div class="form-floating m-2">
+                                                <input type="text" class="form-control" id="emaildl"
+                                                    placeholder="First name" name="email"
+                                                    onfocus="removeError('email-error')" onfocusout="validateEmail()"
+                                                    required disabled />
+                                                <p id="email-error" style="display: none; margin: 0;color: red;"></p>
+                                                <label for="floatingInput">Email</label>
+                                            </div>
+                                            <div class="form-floating m-2">
+                                                <input type="text" class="form-control" id="phonedl"
+                                                    placeholder="First name" name="phonenum"
+                                                    onfocus="removeError('phone-error')" onfocusout="validatePhone()"
+                                                    required disabled />
+                                                <p id="phone-error" style="display: none; margin: 0;color: red;"></p>
+                                                <label for="floatingInput">Phone number</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-check m-3">
+                                            <input class="form-check-input" name="save" type="checkbox" value="savetrue"
+                                                id="flexCheckDefault" disabled />
+                                            <label class="form-check-label" for="flexCheckDefault" style="color: #fff;">
+                                                Check mark to save this address
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div class="payement-selection">
+                                    <h4>PAYEMENT</h4>
+                                    <p>Billing Country/Region <span>India</span></p>
+                                    <div class="payement-method-s">
+                                        <p>Select Payement Method</p>
+
+                                        <div>
+                                            <div style="display: flex;">
+                                                  <input type="radio" id="html"
+                                                    onfocus="removeError('payementvalidateErr')"
+                                                    style=" display: block !important; " name="paymentMethod"
+                                                    value="razorpay">
+                                                  <label class="razorpay" for="razorpay"><img
+                                                        src="../../images/razorpay.png"></label></div>
+                                            <div style="display: flex;">
+                                                  <input style="
+                                            display: block !important; 
+                                           " type="radio" id="css" name="paymentMethod" value="paytm"
+                                                    onfocus="removeError('payementvalidateErr')">
+                                                  <label for="paytm" class="paytm"><img
+                                                        src="../../images/paytm.png"></label></div>
+                                            <div style="display: flex;">
+                                                  <input style="
+                                            display: block !important; 
+                                           " type="radio" id="javascript" name="paymentMethod" value="cod"
+                                                    onfocus="removeError('payementvalidateErr')">
+                                                  <label class="cashon" for="cashonDelivery">Cash On Delivery</label>
+                                            </div>
+                                            <p id="payementvalidateErr" style="display: none; margin: 0;color: red;">
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="text" style="display: none;" name="userId" value="<%= userAccount.id %>">
+                                <div class="my-5">
+                                    <a class="checkout-cnfrm" style="padding: 12px; text-decoration:none;"
+                                        onclick="placeorder()">Place order</a>
+                                    <button class="checkout-cancel">Cancel</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="order-summary">
+                            <h3>ORDER SUMMARY</h3>
+                            <div class=" my-1">
+                                <%cartItems.forEach((element,i)=>{%>
+                                    <div class="order-item">
+                                        <div class="order-itemimg"><img
+                                                src="../../uploads/<%= element.product.images[0] %>"> </div>
+                                        <div class="p-1" style="color: #fff; margin-left: 10px;">
+                                            <h6>
+                                                <%= element.product.productname %>
+                                            </h6>
+                                            <P>Quantity: <%= element.quantity %>
+                                            </P>
+                                        </div>
+                                    </div>
+
+                                    <%})%>
+                            </div>
+                            <div class="coupon pb-4">
+
+                                <input type="text" id="cpn" name="coupon">
+                                <button class="coupon-button" style="padding: 0;" onclick="couponCheck()">Apply</button>
+
+                            </div>
+                            <% console.log("dfsdfsdfsdfffffff",cartTotal.discount) %>
+                           
+                            <% if(cartTotal.discount == 0){ %>
+
+                                <div class="total-price my-2" style="display:none ;color:white" ; id="subtotaldiv">
+                                    <div>
+                                        <h6>Sub Total</h6>
+                                    </div>
+                                    <div>
+                                        <h6 id="subtotal">Rs<%= cartTotal.total %>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="total-price my-2" style="display:none; color:green;" id="discountpricediv">
+                                    <div>
+                                        <h6>Discount</h6>
+                                    </div>
+                                    <div>
+                                        <h6 id="discountprice">Rs<%= cartTotal.discount %>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="total-price my-2">
+                                    <div>
+                                        <h3> Total</h3>
+                                    </div>
+                                    <div>
+                                        <h3 id="totalamnt">Rs <%= cartTotal.total %>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <% }else{%>
+                                    <div class="total-price my-2" style="color:white;"  id="subtotaldiv">
+                                        <div>
+                                            <h6>Sub Total</h6>
+                                        </div>
+                                        <div>
+                                            <h6 id="subtotal">Rs <%= cartTotal.total+cartTotal.discount %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="total-price my-2" style=" color:green;" id="discountpricediv">
+                                        <div>
+                                            <h6>Discount</h6>
+                                        </div>
+                                        <div>
+                                            <h6 id="discountprice">Rs <%= cartTotal.discount %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="total-price my-2">
+                                        <div>
+                                            <h3> Total</h3>
+                                        </div>
+                                        <div>
+                                            <h3 id="totalamnt">Rs <%= cartTotal.total %>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <script>
+
+
+            // ===============
+            $(document).ready(function () {
+                $("#newaddIn").hide();
+                $("#newadd").click(function () {
+                    $("#newaddIn").show();
+                    // $('#newadd').addClass('new-address-s');
+                    $("#saved").hide();
+                    document.getElementById('firstnamedl').removeAttribute("disabled");
+                    document.getElementById("lastnamedl").removeAttribute("disabled");
+                    document.getElementById("addressdl").removeAttribute("disabled");
+                    document.getElementById("citydl").removeAttribute("disabled");
+                    document.getElementById("statedl").removeAttribute("disabled");
+                    document.getElementById("pincodedl").removeAttribute("disabled");
+                    document.getElementById("emaildl").removeAttribute("disabled");
+                    document.getElementById("phonedl").removeAttribute("disabled");
+                    document.getElementById("flexCheckDefault").removeAttribute("disabled");
+                    // document.getElementById("firstname").disabled = false;
+                    // document.getElementById("lastname").disabled = false
+                    // document.getElementById("address").disabled = false;
+                    // document.getElementById("city").disabled = false;
+                    // document.getElementById("state").disabled = false;
+                    // document.getElementById("pincode").disabled = false;
+                    // document.getElementById("email").disabled = false;
+                    // document.getElementById("phone").disabled = false;
+                    // document.getElementById("flexCheckDefault").disabled = false
+                    // document.getElementsByName("address-r").disabled = true;
+                    for (var x = 0; x < 3; x++) {
+                        document.getElementById("address" + x).setAttribute("disabled", "disabled");
+                        document.getElementById("address" + x).checked = false;
+
+                    }
+                });
+                $("#savedbtn").click(function () {
+                    $("#newaddIn").hide();
+                    $("#saved").show();
+
+                    // document.getElementById("firstnamedl").setAttribute("disabled", "disabled");
+                    // document.getElementById("lastnamedl").disabled = true;
+                    // document.getElementById("addressdl").disabled = true;
+                    // document.getElementById("citydl").disabled = true;
+                    // document.getElementById("statedl").disabled = true;
+                    // document.getElementById("pincodedl").disabled = true;
+                    // document.getElementById("emaildl").disabled = true;
+                    // document.getElementById("phonedl").disabled = true;
+                    // document.getElementById("flexCheckDefault").disabled = true;
+                    // document.getElementsByName("address-r").disabled = false;
+                    for (var x = 0; x < 3; x++) {
+                        document.getElementById("address" + x).removeAttribute("disabled");
+                    }
+                });
+            });
+
+            // function addtofields(firstname,address,city,state,pincode,landmark,email,phonenum) {
+
+            //     // let firstname = document.getElementById('lastnamedl').value = firstname
+            //     // let address = document.getElementById('addressdl').value = address
+            //     // let city = document.getElementById('citydl').value = city
+            //     // let state = document.getElementById('statedl').value = state
+            //     // let pincode = document.getElementById('firstnamedl').value = pincode
+            //     // let landmark = document.getElementById('landmarkdl').value = landmark
+            //     // let email = document.getElementById('emaildl').value = email
+            //     // let phonenum = document.getElementById('phonenumdl').value = phonenum
+
+            //     console.log(firstname,address,city,state,pincode,landmark,email,phonenum)
+            // }
+
+
+
+
+
+            var pincodeErr = document.getElementById('pincode-error');
+            var nameErr = document.getElementById('name-error');
+            var landmarkErr = document.getElementById('landmark-error');
+            var cityErr = document.getElementById('city-error');
+            var stateErr = document.getElementById('state-error');
+            var emailErr = document.getElementById('email-error');
+            var phoneErr = document.getElementById('phone-error');
+            var addressErr = document.getElementById('address-error');
+            var addresscheckerr = document.getElementById('selectAdresserror');
+            var payementvalidateErr = document.getElementById('payementvalidateErr');
+
+
+            function validateName() {
+                var name = document.getElementById('lastnamedl').value;
+                nameErr.style.display = 'block';
+                if (name.length == 0) {
+                    nameErr.innerHTML = 'Name is required';
+                    return false;
+                }
+                if (!name.match(/^[A-Za-z]*$/)) {
+                    nameErr.innerHTML = 'Enter Valid name';
+                    return false;
+                }
+                nameErr.innerHTML = '';
+                nameErr.style.display = 'none';
+                return true;
+            }
+            function validateAddress() {
+                var address = document.getElementById('addressdl').value;
+                addressErr.style.display = 'block';
+                if (address.length == 0) {
+                    addressErr.innerHTML = 'Address required';
+                    return false;
+                }
+                if (!address.match(/^[A-Za-z]*$/)) {
+                    addressErr.innerHTML = 'Enter Valid address';
+                    return false;
+                }
+                addressErr.innerHTML = '';
+                addressErr.style.display = 'none';
+                return true;
+            }
+            function validatelandmark() {
+                var landmark = document.getElementById('pincodedl').value;
+                landmarkErr.style.display = 'block';
+                if (landmark.length == 0) {
+                    landmarkErr.innerHTML = 'landmark is required';
+                    return false;
+                }
+                if (!landmark.match(/^[A-Za-z]*$/)) {
+                    landmarkErr.innerHTML = 'Enter Valid landmark';
+                    return false;
+                }
+                landmarkErr.innerHTML = '';
+                landmarkErr.style.display = 'none';
+                return true;
+            }
+            function validateCity() {
+                var city = document.getElementById('citydl').value;
+                cityErr.style.display = 'block';
+                if (city.length == 0) {
+                    cityErr.innerHTML = 'city  is required';
+                    return false;
+                }
+                if (!city.match(/^[A-Za-z]*$/)) {
+                    cityErr.innerHTML = 'Enter Valid city ';
+                    return false;
+                }
+                cityErr.innerHTML = '';
+                cityErr.style.display = 'none';
+                return true;
+            }
+            function validateState() {
+                var state = document.getElementById('statedl').value;
+                stateErr.style.display = 'block';
+                if (state.length == 0) {
+                    stateErr.innerHTML = 'State is required';
+                    return false;
+                }
+                if (!state.match(/^[A-Za-z]*$/)) {
+                    stateErr.innerHTML = 'Enter Valid State';
+                    return false;
+                }
+                stateErr.innerHTML = '';
+                stateErr.style.display = 'none';
+                return true;
+            }
+            function validateEmail() {
+                var email = document.getElementById('emaildl').value;
+                emailErr.style.display = 'block';
+                if (email.length == 0) {
+                    emailErr.innerHTML = 'Email is required';
+                    return false;
+                }
+                if (!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+                    emailErr.innerHTML = 'Enter a valid email';
+                    return false;
+                }
+                emailErr.innerHTML = ""
+                emailErr.style.display = 'none';
+                return true
+            }
+            function validatePhone() {
+                var phone = document.getElementById('phonedl').value;
+                phoneErr.style.display = 'block';
+                if (phone.length == 0) {
+                    phoneErr.innerHTML = 'Phone number is required';
+                    return false;
+                }
+
+                if (phone.length !== 10) {
+                    phoneErr.innerHTML = 'Phone number should 10 digit';
+                    return false;
+                }
+
+                if (!phone.match(/^[0-9]{10}$/)) {
+                    phoneErr.innerHTML = 'Phone number should be 10 digit';
+                    return false;
+                }
+                phoneErr.style.display = 'none';
+                return true;
+            }
+            function validatePincode() {
+                var pincode = document.getElementById('firstnamedl').value;
+                pincodeErr.style.display = 'block';
+                if (pincode.length == 0) {
+                    pincodeErr.innerHTML = 'pincode is required';
+                    return false;
+                }
+
+                if (pincode.length != 6) {
+                    pincodeErr.innerHTML = 'Pincode is wrong';
+                    return false;
+                }
+
+                pincodeErr.innerHTML = ""
+                pincodeErr.style.display = 'none';
+                return true
+            }
+            function removeError(errId) {
+                document.getElementById(`${errId}`).style.display = "none"
+            }
+
+
+            function validateRadio() {
+                var radios = document.getElementsByName('addressr')
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        // alert("Selected Value = " + radios[i].value);
+
+                        addresscheckerr.innerHTML = ""
+                        addresscheckerr.style.display = 'none';
+                        return true; // checked
+                    } else {
+                        addresscheckerr.style.display = 'block';
+
+                        addresscheckerr.innerHTML = 'please select any address';
+
+                    }
+                };
+
+                // not checked, show error
+                // document.getElementById('ValidationError').innerHTML = 'Error!!!';
+                return false;
+            }
+            function validatePayement() {
+                var radios = document.getElementsByName('paymentMethod')
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        // alert("Selected Value = " + radios[i].value);
+
+                        payementvalidateErr.innerHTML = ""
+                        payementvalidateErr.style.display = 'none';
+                        return true; // checked
+                    } else {
+                        payementvalidateErr.style.display = 'block';
+
+                        payementvalidateErr.innerHTML = 'Please select any payement method';
+
+                    }
+                };
+
+                // not checked, show error
+                // document.getElementById('ValidationError').innerHTML = 'Error!!!';
+                return false;
+            }
+
+
+            function placeorder() {
+
+                if (validatePincode() && validateName() && validateAddress() && validatelandmark() && validateCity() && validateState() && validateEmail() && validatePhone() && validatePayement() || validateRadio() && validatePayement()) {
+                    placeordercnfm()
+                }
+
+            }
+
+            function placeordercnfm() {
+
+                $.ajax({
+                    url: "/chechoutdetails",
+                    data: $("#checkoutform").serialize(),
+                    method: "POST",
+                    success: (response) => {
+                        if (response.codstatus) {
+                            Swal.fire({
+                                title: 'Yay, it`s a nice order! it will arrive soon.',
+                                text: 'Honey, eat some more, or mom will be sad.So buy some more.......',
+                                imageUrl: '../../images/cute burger love emotion2.png',
+                                imageWidth: 400,
+                                imageHeight: 200,
+                                imageAlt: 'Custom image',
+                                confirmButtonText:
+                                    'Ok!',
+                                confirmButtonAriaLabel: 'Thumbs up, great!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '/';
+                                }
+                            })
+                        } else {
+                            razorpayPayment(response)
+                        }
+
+                    }
+                })
+            }
+            function razorpayPayment(order) {
+                console.log("oder...............", order.amount)
+                var options = {
+                    "key": "rzp_test_vKo6XcqfARa4uS", // Enter the Key ID generated from the Dashboard
+                    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "YUMMY BURGER",
+                    "description": "Test Transaction",
+                    "image": "../../images/burgerlogo2.png",
+                    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "handler": function (response) {
+                        // alert(response.razorpay_payment_id);
+                        // alert(response.razorpay_order_id);
+                        // alert(response.razorpay_signature)
+                        razorpayVerfiypayment(response, order)
+                    },
+                    "prefill": {
+                        "name": "Gaurav Kumar",
+                        "email": "gaurav.kumar@example.com",
+                        "contact": "9999999999"
+                    },
+                    "notes": {
+                        "address": "Razorpay Corporate Office"
+                    },
+                    "theme": {
+                        "color": "#FAA41A"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            }
+
+            function razorpayVerfiypayment(payment, order) {
+                console.log(payment, order);
+
+                $.ajax({
+                    url: "/razorpayverify",
+                    method: "post",
+                    data: {
+                        payment, order
+                    },
+                    success: function (response) {
+
+                        if (response.paymentstatus) {
+                            Swal.fire({
+                                title: 'Yay, it`s a nice order! it will arrive soon.',
+                                text: 'Honey, eat some more, or mom will be sad.So buy some more.......',
+                                imageUrl: '../../images/cute burger love emotion2.png',
+                                imageWidth: 400,
+                                imageHeight: 200,
+                                imageAlt: 'Custom image',
+                                confirmButtonText:
+                                    'Ok!',
+                                confirmButtonAriaLabel: 'Thumbs up, great!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '/';
+                                }
+                            })
+                        } else {
+                            Swal.fire(
+                                'Payment failed',
+                                'Try again',
+                                'error'
+                            )
+                        }
+                    }
+
+
+                })
+
+            }
+
+            function couponCheck() {
+                let coupon = document.getElementById('cpn').value
+                alert(coupon)
+                $.ajax({
+                    url: "/checkcoupon",
+                    data: {
+                        coupon: coupon
+                    },
+                    method: "POST",
+                    success: (response) => {
+                        console.log(response);
+                        if (response.status) {
+                            Swal.fire(
+
+                                response.status,
+                                'Try another',
+                                'error'
+                            )
+                        } else {
+
+                            let n = document.getElementById('subtotal').innerHTML
+
+                            document.getElementById('subtotaldiv').style.display = 'flex'
+                            document.getElementById('discountpricediv').style.display = 'flex'
+                            document.getElementById('subtotal').innerHTML = n
+                            document.getElementById('discountprice').innerHTML = response.discount
+                            document.getElementById('totalamnt').innerHTML = response.total
+
+                            Swal.fire('Coupon Added',
+                                '',
+                                'success'
+                            )
+                        }
+
+
+                    }
+                })
+            }
+
+        </script>

@@ -1,0 +1,68 @@
+<div class="our-menu">
+    <div class="our-menu-header">
+        <div class="menu-header">
+            <div>
+                <h1>OUR BEST MENU</h1>
+            </div>
+            <div class="header-line"></div>
+            <div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur animi inventore dolores ab
+                    reiciendis aliquid aspernatur, magnam sit.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <!-- <div class="menu-filter-button">
+        <a class="filter-button" href="">All</a>
+        <a class="filter-button" href="">Food</a>
+        <a class="filter-button" href="">Snacks</a>
+        <a class="filter-button" href="">Beverages</a>
+    </div> -->
+    <div class="menu-filter-button filters">
+        <div class="button-group js-radio-button-group" data-filter-group="color">
+            <button class="button filter-button is-checked" data-filter="">all</button>
+            <button class="button filter-button" data-filter=".food">food</button>
+            <button class="button filter-button" data-filter=".snacks">snacks</button>
+            <button class="button filter-button" data-filter=".beverages">beverages</button>
+        </div>
+
+    </div>
+    <section class="row container-fluid menu-list">
+        <% products.forEach(function(product){%>
+            <div class=".col-lg-4 .col-md-3 .col-sm-12 menu-card m-3 <%= product.category%>">
+                <a style="text-decoration:none ;" href="/productdetails/<%= product._id %>">
+                    <div class="card-content">
+                        <div class="menu-image">
+                            <span><i class="bi bi-heart"></i></span>
+                            <img src="/images/burger1.png">
+                        </div>
+                        <div class="menu-content px-2">
+                            <h3>
+                                <%= product.productname %>
+                            </h3>
+                            <p>
+                                <%= product.desription %>
+                            </p>
+                            <div class="price-bag">
+                                <div>
+                                    <h4><i class="bi bi-currency-rupee"></i>
+                                        <%= product.price %>
+                                    </h4>
+                                </div>
+
+                                <a style="text-decoration: none; color: #000;" href="/addtocart/<%= product._id %>">
+                                    <div class="addtobag">
+                                        <i class="bi bi-basket"></i>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <%}); %>
+
+    </section>
+</div>

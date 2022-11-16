@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <% products.forEach(function(product){%>
+        <div>
+            <p style="color: red;">
+                <%= product.productname %>
+            </p>
+            <p style="color: red;">
+                <%= product.description %>
+            </p>
+            <p style="color: red;">
+                <%= product.price %>
+            </p>
+
+            
+            
+            <% for(var i=0; i<product.images.length; i++) { %>
+                    <img src="/uploads/<%= product.images[i] %>">
+
+                <% } %>
+        </div>
+        <%}); %>
+
+</div>

@@ -1,0 +1,541 @@
+<script src="../../javascripts/zoom.js"></script>
+<style>
+    .image-previewer {
+        height: 140px;
+        width: 140px;
+        display: flex;
+        border-radius: 70px;
+        border: 4px solid #171717;
+    }
+</style>
+<section class="navfull">
+    <%- include('../partials/user-navbar.ejs') %>
+
+        <div class="wrap">
+
+            <div class="tabGroup tabGroup1">
+                <ul class="swichtab-controller">
+                    <li data-swichtab="controller"><a href="#markup">profile</a></li>
+                    <li data-swichtab="controller"><a href="#js">Address</a></li>
+                    <li data-swichtab="controller"><a href="#options">Orders</a></li>
+                </ul>
+                <div class="swichtab-contents">
+                    <div id="markup" class="swichtab-panel" data-swichtab="target">
+
+                        <h4 class="pb-4 border-bottomm" style="color:#FFBA00;">Account settings</h4>
+                        <div class="d-flex py-3 border-bottomm" style="justify-content:center; align-items:center">
+                            <!-- <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                        class="img" alt=""> -->
+                            <form method="post" action="/addprofile" enctype="multipart/form-data">
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+
+
+                                        <input type='file' id="imageUpload" name="userimage" accept=".png, .jpg, .jpeg"
+                                            required />
+                                        <label for="imageUpload"><i style="color:#FFBA00;padding: 5px;"
+                                                class="bi bi-plus-lg"></i></label>
+
+                                    </div>
+                                    <div class="avatar-preview">
+                                        <div id="imagePreview"
+                                            style="background-image: url(../../profile/<%=userDetails.profileimage%>);">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="prfupload"> upload</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="py-2 update-profile">
+                            <div class="row py-2">
+                                <div class="col-md-6">
+                                    <label for="firstname">First Name</label>
+                                    <input type="text" class=" form-control" id="prf-name" placeholder=""
+                                        value="<%= userDetails.name%>">
+                                </div>
+                                <div class="col-md-6 pt-md-0 pt-3">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" class=" form-control" id="prf-number" placeholder=""
+                                        value="<%= userDetails.number%>">
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-md-6">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" class=" form-control" placeholder=""
+                                        value="<%= userDetails.email%>" id="prf-email">
+                                </div>
+
+                            </div>
+
+                            <div class="py-3 pb-4 border-bottomm">
+                                <button class="btn savech mr-3 savech "
+                                    onclick="changeprDetails('<%= userDetails._id %>')">Save
+                                    Changes</button>
+
+                            </div>
+
+                            <div class="d-sm-flex align-items-center justify-content-between pt-3" id="deactivate">
+                                <div>
+                                    <b style="color:#fff;">Deactivate your account</b>
+                                    <p style="color:#fff;">Details about your company account and password</p>
+                                </div>
+                                <div class="ml-auto">
+                                    <button onclick="deactivate()" class="btn dang">Deactivate</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div id="js" class="swichtab-panel" data-swichtab="target">
+                        <section>
+                            <div class="container">
+                                <div class="row">
+
+                                    <%if(userDetails?.savedaddress && userDetails.savedaddress.length !=0 ){%>
+                                        <%userDetails.savedaddress.forEach((element,i)=>{%>
+                                            <div class="col-lg-4 col-md-6 col-sm-12"
+                                                style="display: flex; justify-content: center;">
+
+
+                                                <div class="address-box">
+
+                                                    <p>
+                                                        <%= element.firstname %>
+                                                    </p>
+                                                    <p>
+                                                        <%= element.address %>
+                                                    </p>
+                                                    <p>
+                                                        <%= element.city %><span>,<%= element.pincode %></span>
+                                                    </p>
+                                                    <p>
+                                                        <%= element. phonenum %>
+                                                    </p>
+                                                    <p>
+                                                        <%= element.email %>
+                                                    </p>
+
+                                                    <span class="edit-address" onclick="editaddress('<%= i %>')"><i
+                                                            class="bi bi-pencil-square"></i>
+                                                    </span>
+                                                    <span class="delete-address"
+                                                        onclick="removeaddress('<%=element.uniqId %>')"><i
+                                                            class="bi bi-trash3-fill"></i>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <%})%>
+
+                                                <%}else{%>
+                                                    <h3>No saved address.Please add new address</h3>
+                                                    <%}%>
+                                                        <!-- <div class="col-lg-4 col-md-6 col-sm-12"  style="display: flex; justify-content: center;">
+                                <div class="address-box">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12"  style="display: flex; justify-content: center;">
+                                <div class="address-box">
+
+                                </div>
+                            </div> -->
+
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <div id="options" class="swichtab-panel" data-swichtab="target">
+
+                        <section>
+                            <div class="container">
+                                <div class="row">
+                                    <%orders.forEach((order,i)=>{%>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="card">
+                                                <div class="title">Purchase Reciept</div>
+                                                <div class="info">
+                                                    <div class="row">
+                                                        <div class="col-7">
+                                                            <span id="heading">Date</span><br>
+                                                            <span id="details">10 October 2018</span>
+                                                        </div>
+                                                        <div class="col-5 pull-right">
+                                                            <span id="heading">Order Status.</span><br>
+                                                            <span id="details">
+                                                                <%=order.orderstatus%>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pricing">
+                                                    <% for(var k=0; k<order.products.length; k++) { %>
+                                                        <div class="row">
+                                                            <div class="col-9">
+                                                                <span id="name">
+                                                                    <%=order.products[k].name %>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <span id="price">QTY : <%= order.products[k].quantity %>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+                                                            <div class="row">
+                                                                <div class="col-9">
+                                                                    <span id="name">subtotal</span>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <span id="price">&pound;<%=order.totalamount.total +
+                                                                            order.totalamount.discount %></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" style="color:green ;">
+                                                                <div class="col-9">
+                                                                    <span id="name">Discount</span>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <span id="price">&pound;
+                                                                        <%=order.totalamount.discount %>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                </div>
+                                                <div class="total">
+                                                    <div class="row">
+                                                        <div class="col-9"></div>
+                                                        <div class="col-3"><big>&pound;<%=order.totalamount.total %>
+                                                            </big></div>
+                                                    </div>
+                                                </div>
+                                                <div class="tracking">
+                                                    <div class="title">Tracking Order</div>
+                                                </div>
+                                                <div class="progress-track">
+                                                    <ul id="progressbar">
+                                                        <li class="step0  active" id="step1">Ordered</li>
+                                                        <li class="step0 active text-center" id="step2">Shipped</li>
+                                                        <li class="step0 active text-right" id="step3">On the way</li>
+                                                        <li class="step0  text-right" id="step4">Delivered</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%})%>
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <!-- /.swichtab-contents -->
+        </div>
+</section>
+<button type="button" id="addresseditm" style="display: none;" class="btn btn-primary" data-bs-toggle="modal"
+    data-bs-target="#categoryModal" data-bs-whatever="@mdo">sss</button>
+
+
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="new-address" id="newaddIn">
+                    <div>
+                        <form id="addressChange">
+                            <div class="new-address-name">
+                                <div class="form-floating m-2">
+                                    <input type="text" class="form-control" id="firstnamedl" placeholder="First name"
+                                        name="pincode" onfocus="removeError('pincode-error')"
+                                        onfocusout="validatePincode()" required />
+                                    <p id="pincode-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label for="floatingInput">Pincode</label>
+                                </div>
+                                <div class="form-floating m-2">
+                                    <input type="text" class="form-control" id="lastnamedl" placeholder="First name"
+                                        name="firstname" onfocus="removeError('name-error')" onfocusout="validateName()"
+                                        required />
+                                    <p id="name-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label for="floatingInput">full name</label>
+                                </div>
+                            </div>
+                            <div class="form-floating m-2">
+                                <input type="text" class="form-control" id="addressdl" required placeholder="First name"
+                                    name="address" onfocus="removeError('address-error')"
+                                    onfocusout="validateAddress()" />
+                                <p id="address-error" style="display: none; margin: 0;color: red;"></p>
+                                <label for="floatingInput">Address</label>
+                            </div>
+                            <div class="new-address-cty">
+                                <div class="form-floating m-2">
+                                    <input type="text" class="form-control" id="pincodedl" placeholder="First name"
+                                        name="landmark" onfocus="removeError('landmark-error')"
+                                        onfocusout="validatelandmark()" required />
+                                    <p id="landmark-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label for="floatingInput">landmark</label>
+                                </div>
+                                <div class="form-floating m-2">
+                                    <input type="text" class="form-control" id="citydl" placeholder="First name"
+                                        name="city" onfocus="removeError('city-error')" onfocusout="validateCity()"
+                                        required />
+                                    <p id="city-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label for="floatingInput">City</label>
+                                </div>
+                                <div class="form-floating m-2">
+                                    <input type="text" class="form-control" id="statedl" placeholder="First name"
+                                        name="state" onfocus="removeError('state-error')" onfocusout="validateState()"
+                                        required />
+                                    <label for="floatingInput">State</label>
+                                    <p id="state-error" style="display: none; margin: 0;color: red;"></p>
+                                </div>
+
+                            </div>
+                            <div class="new-address-contact">
+                                <div class="form-floating m-2">
+                                    <input type="text" class="form-control" id="emaildl" placeholder="First name"
+                                        name="email" onfocus="removeError('email-error')" onfocusout="validateEmail()"
+                                        required />
+                                    <p id="email-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label for="floatingInput">Email</label>
+                                </div>
+                                <div class="form-floating m-2">
+                                    <input type="text" class="form-control" id="phonedl" placeholder="First name"
+                                        name="phonenum" onfocus="removeError('phone-error')"
+                                        onfocusout="validatePhone()" required />
+                                    <p id="phone-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label for="floatingInput">Phone number</label>
+                                </div>
+                            </div>
+                        </form>
+                        <input id="arsz" style="display: none;"></input>
+                    </div>
+                </div>
+                <span style="display:none;" id="catId"></span>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button onclick="addressChange()" class="btn btn-primary">submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../javascripts/switchtab.js"></script>
+
+<script type="text/javascript">
+    $('.tabGroup1').swichTab();
+    $('.tabGroup2').swichTab({
+        cahngePanel: 'fade',
+        swiper: true,
+        index: 2,
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#cropzee-input").cropzee({ startSize: [85, 85, '%'], });
+    });
+</script>
+<script>
+    function changeprDetails(userId) {
+
+        let name = document.getElementById('prf-name').value;
+        let email = document.getElementById('prf-email').value;
+        let number = document.getElementById('prf-number').value;
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            confirmButtonText: 'Save',
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/updateuserdetails',
+                    data: { name, email, number, userId },
+                    method: 'post',
+                    success: (response) => {
+                        Swal.fire('Saved!', '', 'success')
+
+                    }
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+
+    }
+    function editaddress(i) {
+        alert(i)
+        $.ajax({
+            url: '/editaddress/' + i,
+            method: "get",
+            success: function (adrs) {
+                console.log(adrs);
+                document.getElementById('lastnamedl').value = adrs.firstname;
+                document.getElementById('addressdl').value = adrs.address;
+                document.getElementById('citydl').value = adrs.city;
+                document.getElementById('statedl').value = adrs.state;
+                document.getElementById('firstnamedl').value = adrs.pincode;
+                document.getElementById('pincodedl').value = adrs.landmark;
+                document.getElementById('emaildl').value = adrs.email;
+                document.getElementById('phonedl').value = adrs.phonenum;
+                document.getElementById('phonedl').value = adrs.phonenum;
+                document.getElementById('arsz').value = adrs.uniqId;
+                document.getElementById('addresseditm').click();
+            },
+            error: function (err) {
+                Swal.fire("Error!", "Something went wrong!", "error");
+            },
+        });
+
+    }
+    function addressChange() {
+        let id = document.getElementById('arsz').value;
+
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/addresschange/' + id,
+                    data: $("#addressChange").serialize(),
+                    method: "POST",
+                    success: function (response) {
+                        console.log("ressssss", response)
+                        if (response.status) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Address updated',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload();
+                            })
+
+                        } else {
+                            alert("noooooo")
+                        }
+
+                    },
+                    error: function (err) {
+                        Swal.fire("Error!", "Something went wrong!", "error");
+                    },
+                });
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+
+    }
+    function removeaddress(id) {
+        Swal.fire({
+            title: 'Do you want to remove this address ?',
+
+            showCancelButton: true,
+            confirmButtonText: 'remove',
+            denyButtonText: `Don't remove`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/removeaddress',
+                    data: {
+                        addressId: id
+                    },
+                    method: 'post',
+                    success: function (response) {
+                        if (response.status) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Address Removed',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload();
+                            })
+                        }
+                    },
+                    error: function (err) {
+                        Swal.fire("Error!", "Something went wrong!", "error");
+                    },
+                });
+            }
+        })
+
+    }
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function () {
+        readURL(this);
+    });
+
+
+    function deactivate() {
+        Swal.fire({
+            title: 'Do you want to deactivate your account?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: `No`,
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/userdeactivate',
+                    data: {
+                    },
+                    method: 'get',
+                    success: function (response) {
+                        alert(response)
+                        if (response.status) {
+
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Your account is deactivated',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                window.location.href = "/"
+                            })
+                        }
+                    },
+                    error: function (err) {
+                        Swal.fire("Error!", "Something went wrong!", "error");
+                    },
+                });
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+
+    }
+</script>

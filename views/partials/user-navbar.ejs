@@ -1,0 +1,477 @@
+<div class="continer-fluid">
+    <nav class="nav-section" id="navbar">
+        <div>
+            <header class="header">
+                <div class="background"></div>
+                <div class="burger-menu">
+                    <input class="menu-btn" type="checkbox" id="menu-btn" />
+                    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+                    <ul class="menu mt-3">
+                        <li>
+                            <div>
+                                <a href="/">
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="40" fill="currentColor"
+                                            class="bi bi-house-door" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
+                                        </svg>
+                                    </div>
+                                    <div>Home</div>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <a href="/profile">
+                                    <div>
+                                        <i style="font-size: 40px; ;" class="bi bi-person-circle"></i>
+                                    </div>
+                                    <div>Profile</div>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <a href="#">
+                                    <div>
+                                        <i style="font-size: 40px;"class="bi bi-info-circle"></i>
+                                    </div>
+                                    <div>About</div>
+                                </a>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+
+            </header>
+
+        </div>
+        <div class="nav-logo pt-1">
+            <a href="/">
+
+                <img src="../../images/burgerlogo2.png">
+            </a>
+        </div>
+        <div>
+            <div class="nav-right">
+                <div class="px-3" sty><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#F1F8FF"
+                        class="bi bi-heart-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                    </svg></div>
+                <div class="px-3"><a href="/cart"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                            fill="#F1F8FF" class="bi bi-basket-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z" />
+                        </svg><span class="badge bg-success" id="cart-count">
+                            <%= cartCount %>
+                        </span></a></div>
+                <div class="px-3" data-bs-toggle="modal" data-bs-target="#signupform">
+                    <% if(userAccount){ %>
+                        <img src="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg"
+                            alt="" class="image--cover" />
+                        <a class="mx-2" href="/logout"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="30"
+                                fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                                <path fill-rule="evenodd"
+                                    d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                            </svg></a>
+
+                        <% } else { %>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#F1F8FF"
+                                class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                <path fill-rule="evenodd"
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                            </svg>
+                            <% } %>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="signupform" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="header-logo">
+                    <div>
+                        <img src="/images/burgerlogo2.png" style="width: 85px;" class="img-fluid">
+                    </div>
+                </div>
+                <div class="wrapper">
+                    <div class="title-text">
+                        <div class="title login">Login Form</div>
+                        <div class="title signup">Signup Form</div>
+                    </div>
+                    <div class="form-container">
+                        <div class="slide-controls">
+                            <input type="radio" name="slide" id="login" checked>
+                            <input type="radio" name="slide" id="signup">
+                            <label for="login" class="slide login">Login</label>
+                            <label for="signup" class="slide signup">Signup</label>
+                            <div class="slider-tab"></div>
+                        </div>
+                        <div class="form-inner">
+                            <form action="/signin" method="POST" class="login " id="signinForm">
+
+
+                                <div class="field form-group">
+                                    <input type="email" name="email" id="username" placeholder=" ">
+                                    <label class="label-float" for="username">Email</label>
+                                </div>
+                                <div class="field form-group">
+                                    <input type="password" name="password" placeholder=" " required id="password">
+                                    <i style="color:aliceblue;position:absolute;top:14px;right:35px;"
+                                        class="bi bi-eye-slash" id="togglePassword"></i>
+                                    <label class="label-float" for="password">Password</label>
+                                </div>
+                                <div class="pass-link"><a href="#">Forgot password?</a></div>
+                                <div class="field btn">
+                                    <div class="btn-layer"></div>
+                                    <input onclick="signin()" type="submit" value="Login">
+                                </div>
+
+                                <div class="signup-link"><button class="otploginbtn" data-bs-toggle="modal"
+                                        data-bs-target="#otp-number">login with otp</button></div>
+                                <div class="signup-link">Not a member? <a href="">Signup now</a></div>
+                            </form>
+                            <form id="signupForm" class="signup">
+                                <div class="field form-group" id="user-name">
+                                    <input type="text" name="name" placeholder=" " id="name"
+                                        onfocus="removeError('name-error')" onfocusout="validateName()">
+                                    <p id="name-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label class="label-float" for="name">Name</label>
+                                </div>
+                                <div class="field form-group" id="user-email">
+                                    <input type="email" name="email" placeholder=" " id="emailid"
+                                        onfocus="removeError('email-error')" onfocusout="validateEmail()">
+                                    <p id="email-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label class="label-float" for="email">Email Address</label>
+                                </div>
+                                <div class="field form-group" id="user-phn">
+                                    <input type="text" name="phn-number" placeholder=" " id="phone-number"
+                                        onfocus="removeError('phone-error')" onfocusout="validatePhone()">
+                                    <p id="phone-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label class="label-float" for="email">phone number</label>
+                                </div>
+                                <div class="field form-group" id="user-password">
+                                    <input type="password" name="password" id="password_signin" placeholder=" "
+                                        id="password" onfocus="removeError('password-error')"
+                                        onfocusout="validatePassword()">
+                                    <p id="password-error" style="display: none; margin: 0;color: red;"></p>
+                                    <label class="label-float" for="password">Password</label>
+                                </div>
+                                <div class="field form-group" id="user-confirm-password">
+                                    <input type="password" name="confirm_password" placeholder=" " required
+                                        id="password_s">
+                                    <i style="color:aliceblue;position:absolute;top:14px;right:35px;"
+                                        class="bi bi-eye-slash" id="togglePassword_s"></i>
+                                    <label class="label-float" for="password">Confirm Password</label>
+                                </div>
+                                <div class="field btn" id="signup-btn">
+                                    <div class="btn-layer"></div>
+                                    <input type="submit" value="Signup" onclick="sendOt()" form="notAform"
+                                        id="submitbtn">
+                                </div>
+                                <div class="card-body" style="display: none;" id="otp-body">
+                                    <h4 class="card-title text-center" style="margin-top: 50px;color:#fff">OTP
+                                        VERIFICATION</h4>
+                                    <P style="text-align: center;color:#fff;margin-top: 40px;">Enter the OTP number</P>
+                                    <div class="card-text text-center mt-2
+                                    ">
+                                        <div class="otp-form" id="otp-verify">
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+
+                                            <!-- Store OTP Value -->
+                                            <input class="otp-value" type="hidden" form="notAform" name="opt-value"
+                                                id="otp">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="field btn" style="display: none;" id="verfiy-button">
+                                    <div class="btn-layer"></div>
+                                    <button class="btn btn-primary"
+                                        style="background-image: linear-gradient(to right, #fea116, #ffa711, #ffad0c, #ffb405, #ffba00);border:none;"
+                                        form="notAform" onclick="submit_signup()">submit</button>
+                                    <!-- <input type="submit" onclick="submit_signup()" value="submit">  -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <button type="button" class="btn btn-primary"  id="otp-number" data-bs-toggle="modal" data-bs-target="#otp-number1">
+    Launch demo modal
+</button> -->
+<!-- Modal -->
+<div class="modal fade" id="otp-number1" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content number-verification">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <h4 class="card-title text-center" style="color: #fff;">OTP Verificattion</h4>
+                    <div class="card-text text-center mt-5">
+                        <form class="otp-form" id="otp-verify">
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+
+                            <!-- Store OTP Value -->
+                            <input class="otp-value" type="hidden" name="opt-value">
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="otp-number" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content number-verification">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="otp-number-verification">
+                    <h2 style="color: #fff;">OTP VERFICATION</h2>
+                    <p style="color: #fff;">Enter your mobile number</p>
+                    <form id="otplog">
+                        <input type="tel" maxlength="10" name="num" class="js-input-mobile" />
+                    </form>
+                    <div>
+                        <a class="btn btn-success m-2" onclick="otplogin()">send otp</a>
+                    </div>
+                    <button style="display:none ;" type="button" id="ot" class="btn btn-success m-4"
+                        data-bs-toggle="modal" data-bs-target="#otp-validation">submit</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="otp-validation" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content number-verification">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <h4 class="card-title text-center" style="color: #fff;">OTP Verificattion</h4>
+                    <div class="card-text text-center mt-5">
+                        <div class="otp-form">
+                            <form id="otpnum">
+                                <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+
+                                <!-- Store OTP Value -->
+                                <input class="otp-value" type="hidden" id="otpvalue" name="otp-value">
+
+                                <a class="btn btn-success" style="margin: 50px;
+                                height: 37px;
+                                width: 110px;" onclick="ot()">Verify</a>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    var nameErr = document.getElementById('name-error');
+    var emailErr = document.getElementById('email-error');
+    var phoneErr = document.getElementById('phone-error');
+    var passwordErr = document.getElementById('password-error');
+
+    function validateName() {
+        var name = document.getElementById('name').value;
+        nameErr.style.display = 'block';
+        if (name.length == 0) {
+            nameErr.innerHTML = 'Name is required';
+            return false;
+        }
+        if (!name.match(/^[A-Za-z]*$/)) {
+            nameErr.innerHTML = 'Enter Valid name';
+            return false;
+        }
+        nameErr.innerHTML = '';
+        nameErr.style.display = 'none';
+        return true;
+    }
+    function validateEmail() {
+        var email = document.getElementById('emailid').value;
+        emailErr.style.display = 'block';
+        if (email.length == 0) {
+            emailErr.innerHTML = 'Email is required';
+            return false;
+        }
+        if (!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+            emailErr.innerHTML = 'Enter a valid email';
+            return false;
+        }
+        emailErr.innerHTML = ""
+        emailErr.style.display = 'none';
+        return true
+    }
+    function validatePhone() {
+        var phone = document.getElementById('phone-number').value;
+        phoneErr.style.display = 'block';
+        if (phone.length == 0) {
+            phoneErr.innerHTML = 'Phone number is required';
+            return false;
+        }
+
+        if (phone.length !== 10) {
+            phoneErr.innerHTML = 'Phone number should 10 digit';
+            return false;
+        }
+
+        if (!phone.match(/^[0-9]{10}$/)) {
+            phoneErr.innerHTML = 'Phone number should be 10 digit';
+            return false;
+        }
+        phoneErr.style.display = 'none';
+        return true;
+    }
+    function validatePassword() {
+        var password = document.getElementById('password_signin').value;
+        passwordErr.style.display = 'block';
+        if (password.length == 0) {
+            passwordErr.innerHTML = 'Password is required';
+            return false;
+        }
+
+        if (password.length < 5) {
+            passwordErr.innerHTML = 'Password is Atleast 5 characters';
+            return false;
+        }
+        passwordErr.innerHTML = ""
+        passwordErr.style.display = 'none';
+        return true
+    }
+    function removeError(errId) {
+        document.getElementById(`${errId}`).style.display = "none"
+    }
+
+
+    function sendOt() {
+        if (validateName() && validateEmail() && validatePhone() && validatePassword()) {
+            let phoneNumber = document.getElementById('phone-number').value
+            console.log(phoneNumber);
+            $.ajax({
+                url: '/sendotp',
+                method: 'post',
+                data: { "phoneNumber": phoneNumber },
+                success: (response) => {
+                    // location.reload(); 
+                    document.getElementById('user-name').style.display = "none"
+                    document.getElementById('user-email').style.display = "none"
+                    document.getElementById('user-phn').style.display = "none"
+                    document.getElementById('user-password').style.display = "none"
+                    document.getElementById('user-confirm-password').style.display = "none"
+                    document.getElementById('signup-btn').style.display = "none"
+                    document.getElementById('otp-body').style.display = "block"
+                    document.getElementById('verfiy-button').style.display = "block"
+
+                }
+            })
+        }
+    }
+
+
+
+
+    $(document).ready(function () {
+        $(".otp-form *:input[type!=hidden]:first").focus();
+        let otp_fields = $(".otp-form .otp-field"),
+            otp_value_field = $(".otp-form .otp-value");
+        otp_fields
+            .on("input", function (e) {
+                $(this).val(
+                    $(this)
+                        .val()
+                        .replace(/[^0-9]/g, "")
+                );
+                let opt_value = "";
+                otp_fields.each(function () {
+                    let field_value = $(this).val();
+                    if (field_value != "") opt_value += field_value;
+                });
+                otp_value_field.val(opt_value);
+            })
+            .on("keyup", function (e) {
+                let key = e.keyCode || e.charCode;
+                if (key == 8 || key == 46 || key == 37 || key == 40) {
+                    // Backspace or Delete or Left Arrow or Down Arrow
+                    $(this).prev().focus();
+                } else if (key == 38 || key == 39 || $(this).val() != "") {
+                    // Right Arrow or Top Arrow or Value not empty
+                    $(this).next().focus();
+                }
+            })
+            .on("paste", function (e) {
+                let paste_data = e.originalEvent.clipboardData.getData("text");
+                let paste_data_splitted = paste_data.split("");
+                $.each(paste_data_splitted, function (index, value) {
+                    otp_fields.eq(index).val(value);
+                });
+            });
+    });
+
+
+</script>
+
+<script src="/javascripts/signupform.js"></script>

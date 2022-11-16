@@ -1,0 +1,123 @@
+<%- include('../partials/admin-navbar.ejs') %>
+    <main style="padding:2rem 4rem 2em 4rem">
+
+        <div style="display:flex ;justify-content:space-between;">
+            <h1>pincode</h1>
+            <button type="button" id="pincodeedit" class="btn btn-primary"
+                style="height:40px;background:#FEA116;margin-right: 90px;border: none;" data-bs-toggle="modal"
+                data-bs-target="#pincodeModal" data-bs-whatever="@mdo">Add pincode</button>
+        </div>
+        <table id="table_id">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+
+                    <th style="text-align: center;">delete</th>
+
+
+                </tr>
+            </thead>
+            <% if (pincode.length!=0) {%>
+                <tbody>
+
+                    <% pincode.forEach(function(pincode){ %>
+                        <tr>
+                            <td data-label="Projeto">
+                                <%= pincode.pincode %>
+                            </td>
+                            <td data-label="Administrador">
+                                <%= pincode.Pincodedetails %>
+                            </td>
+
+                            <td style="text-align:center ;" data-label="">
+
+                                <a onclick="pincodeBlock(event)" href="">
+                                    <div class="" style="margin-right:5rem ;color:red">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </div>
+                                </a>
+
+                            </td>
+
+                        </tr>
+                        <% }); %>
+
+
+                </tbody>
+
+                <% } %>
+
+
+        </table>
+        <p class="copyright">
+            &copy; 2022 - <span>YUMMY BURGER</span> All Rights Reserved.
+        </p>
+    </main>
+
+    <!-- modal add pincode -->
+
+    <div class="modal fade" id="pincodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Pincode</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="/admin/addpincode" id="editpincode">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">pincode code</label>
+                            <input type="number" class="form-control" id="pincodename" value="" name="pincode"
+                                id="recipient-name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Pincode details </label>
+                            <textarea class="form-control" name="Pincodedetails" id="pincodedescription" value=""
+                                id="message-text"></textarea>
+                        </div>
+
+                        <span style="display:none;" id="catId"></span>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <!-- <button onclick="addpincode()" class="btn btn-primary">submit</button> -->
+                            <button type="submit" class="btn btn-primary">submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <script>
+
+            function addpincode() {
+                $.ajax({
+                    url: "/admin/addpincode",
+                    data: $("#addpincode").serialize(),
+                    method: "POST",
+                    success: function (response) {
+                        console.log("ressssss", response)
+                        if (response) {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'pincode added',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                window.location.href = '/admin/addproduct';
+                            })
+
+                        }
+
+                    },
+                    error: function (err) {
+                        Swal.fire("Error!", "Something went wrong!", "error");
+                    },
+                });
+            }
+
+        </script>

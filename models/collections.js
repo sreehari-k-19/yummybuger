@@ -1,0 +1,9 @@
+module.exports={
+    USER_DETAILS:'userDetails',
+    PRODUCT_DETAILS:'productDetails',
+    CATEGORY:'categoryList',
+    CART:'cart',
+    ORDER:'orderDetails',
+    COUPON:'coupons',
+    PINCODE:'pincode'
+}

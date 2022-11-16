@@ -1,0 +1,289 @@
+<%- include('../partials/user-navbar.ejs') %>
+
+  <div class="container-fluid py-5 bg-dark hero-header mb-5">
+    <div class="container my-3 py-5">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 text-center text-lg-start animate__animated animate__slideInLeft">
+          <h1 class="display-3 text-white">Enjoy Our<br />Delicious Burger</h1>
+          <p class="text-white animate__animated slideInLeft mb-4 pb-2">Tempor
+            erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam
+            amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem
+            sit clita duo justo magna dolore erat amet</p>
+          <!-- <a href="" class="btn py-sm-3 px-sm-5 me-3 animated slideInLeft">Order
+            now</a> -->
+          <div class="d-flex align-items-center">
+            <div class="form-floating m-2">
+              <input type="number" name="pincode" class="form-control pincheckinput"  id="floatingInput" placeholder="Pincode">
+              <label for="floatingInput" style="color: #df2939">Pincode </label>
+            </div>
+            <div class="pincheck  animated slideInLeft">Order
+              now</div>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center text-lg-end animate__animated animate__slideInDown animate__slow_1s">
+          <img class="img-fluid" src="/images/brgr2.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- menu_category_list -->
+
+  <div class="menu-category">
+    <div class="category-table">
+      <div class="menu-category-items food wow animate__rotateInUpLeft" data-wow-duration="900ms">
+        <div class="text_items">
+          <h3>FOODS</h3>
+          <p>Lorem ipsum dolor sit amet, nisi enim usdam.</p>
+          <a href="">BUY ONLINE</a>
+        </div>
+      </div>
+      <div class="menu-category-items snacks wow animate__fadeInUp" data-wow-duration="900ms">
+        <div class="text_items">
+          <h3>SNACKS</h3>
+          <p>Lorem ipsum dolor sit amet, nisi enim usdam.</p>
+          <a href="">BUY ONLINE</a>
+        </div>
+      </div>
+      <div class="menu-category-items beverages wow animate__rotateInUpRight" data-wow-duration="900ms">
+        <div class="text_items">
+          <h3>BEVERAGES</h3>
+          <p>Lorem ipsum dolor sit amet, nisi enim usdam.</p>
+          <a href="">BUY ONLINE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- menu_category_list_end -->
+
+  <!-- Pay_day_promo  -->
+
+  <div class="container-fluid">
+    <div class="pay-day-promo">
+      <div class="promo-box first wow animate__fadeInLeft" data-wow-duration="1.0s">
+        <div class="promo-box-text">
+          <p>Payday promo</p>
+          <h2>Get a 10% discount on payday week</h2>
+          <p class="description">Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Aut quam nulla.</p>
+          <a href="">BUY ONLINE</a>
+        </div>
+        <div class="promo-box-image">
+          <img src="/images/burger2.png" />
+        </div>
+      </div>
+      <div class="promo-box second wow animate__fadeInRight " data-wow-duration="1.0s">
+        <div class="promo-box-text">
+          <p>Payday promo</p>
+          <h2>Get a 10% discount on payday week</h2>
+          <p class="description">Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Aut quam nulla.</p>
+          <a href="">BUY ONLINE</a>
+        </div>
+        <div class="promo-box-image">
+          <img src="/images/coke.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../user/ourmenu.ejs') %>
+
+    <!-- ========videosection-start=========== -->
+    <script src="../../javascripts/backgroundvideo.js"></script>
+    <section class="wow animate__fadeIn " data-wow-duration="2s">
+      <div class="example-marquee" style="height:80vh;">
+        <div id="ytbg" data-ytbg-fade-in="true" data-ytbg-resolution="4:3" data-ytbg-start-at="5" data-ytbg-end-at="30"
+          style="height:70vh;" data-youtube="https://www.youtube.com/watch?v=HS24PywYlxg"></div>
+        <div class="content">
+          <div class="inner">
+            <h1 class="my-3">WE SERVE YOU THE BEST</h1>
+            <p class="line"></p>
+            <p style="width:400px; text-align: center; color: #fff;">Lorem ipsum dolor sit amet, consectetuer adipiscing
+              elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis
+              parturient montes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="text/javascript">
+
+      jQuery(document).ready(function () {
+        jQuery('[data-youtube], [data-vbg]').youtube_background();
+      });
+
+      document.querySelector('#ytbg2').addEventListener('video-background-pause', function () {
+        console.log(arguments);
+      });
+    </script>
+
+
+    <!-- ========videosection=========== -->
+
+
+    <!-- ===========start-price-start========= -->
+
+
+    <section class="mb-5" style="margin-top: 12rem;">
+
+      <div class="start-price">
+
+
+        <div class="box wow animate__fadeInLeft" data-wow-duration="1s" style=" background-color: #00A149;">
+          <div class="shape ">
+            <img class="grow" src="../../images/h1_shape-8.png">
+          </div>
+          <div class="start-price-text">
+            <h1 style="text-shadow: 2px 0 6px #00a850;">Snacks</h1>
+            <p>Start From</p>
+            <h3><i class="bi bi-currency-rupee"></i>199</h3>
+          </div>
+          <div class="">
+            <img class="start-img " src="../../images/burger1.png">
+          </div>
+
+        </div>
+        <div class="box wow animate__fadeInLeft" data-wow-duration="1.5s" style=" background-color: #db731e;">
+          <div class="shape ">
+            <img class="grow" src="../../images/h1_shape-8.png">
+          </div>
+          <div class="start-price-text">
+            <h1 style="text-shadow: 2px 0 6px #db731e;">Burgers</h1>
+            <p>Start From</p>
+            <h3><i class="bi bi-currency-rupee"></i>199</h3>
+          </div>
+          <div class="">
+            <img class="start-img " src="../../images/burger1.png">
+          </div>
+
+        </div>
+        <div class="box box-beverages wow animate__fadeInLeft" data-wow-duration="2s"
+          style=" background-color: #ffc900;">
+          <div class="shape ">
+            <img class="grow" src="../../images/h1_shape-8.png">
+          </div>
+          <div class="start-price-text">
+            <h1 style="color: #cd4414;text-shadow: 2px 0 6px #ffc900;">Beverages</h1>
+            <p>Start From</p>
+            <h3 style="color: #000;"><i class="bi bi-currency-rupee"></i>199</h3>
+          </div>
+          <div class="">
+            <img class="start-img-beverages" src="../../images/burger1.png">
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <script>
+      $(document).ready(function () {
+
+        $('.box').mouseover(function () {
+
+          $(this).find('.grow').css('transform', 'scale(8.8)');
+        });
+
+        $('.box').mouseout(function () {
+
+          $(this).find('.grow').css('transform', 'scale(1)');
+        });
+      });
+    </script>
+    <!-- ===========start-price========= -->
+
+    <!-- ============footer-start========== -->
+
+
+
+    <div>
+      <svg width="100%" height="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg"
+        class="transition duration-300 ease-in-out delay-150">
+        <style>
+          .path-0 {
+            animation: pathAnim-0 4s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+          }
+
+          @keyframes pathAnim-0 {
+            0% {
+              d: path("M 0,400 C 0,400 0,200 0,200 C 132,220 264,240 405,228 C 546,216 696,172 870,162 C 1044,152 1242,176 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+
+            25% {
+              d: path("M 0,400 C 0,400 0,200 0,200 C 115.06666666666666,193.73333333333335 230.13333333333333,187.46666666666667 406,188 C 581.8666666666667,188.53333333333333 818.5333333333333,195.86666666666665 1001,199 C 1183.4666666666667,202.13333333333335 1311.7333333333333,201.06666666666666 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+
+            50% {
+              d: path("M 0,400 C 0,400 0,200 0,200 C 191.86666666666667,198.53333333333333 383.73333333333335,197.06666666666666 525,209 C 666.2666666666667,220.93333333333334 756.9333333333334,246.2666666666667 901,247 C 1045.0666666666666,247.7333333333333 1242.5333333333333,223.86666666666665 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+
+            75% {
+              d: path("M 0,400 C 0,400 0,200 0,200 C 158.40000000000003,219.73333333333335 316.80000000000007,239.46666666666667 495,223 C 673.1999999999999,206.53333333333333 871.2,153.86666666666667 1032,144 C 1192.8,134.13333333333333 1316.4,167.06666666666666 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+
+            100% {
+              d: path("M 0,400 C 0,400 0,200 0,200 C 132,220 264,240 405,228 C 546,216 696,172 870,162 C 1044,152 1242,176 1440,200 C 1440,200 1440,400 1440,400 Z");
+            }
+          }
+        </style>
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="5%" stop-color="#171717"></stop>
+            <stop offset="95%" stop-color="#171717"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          d="M 0,400 C 0,400 0,200 0,200 C 132,220 264,240 405,228 C 546,216 696,172 870,162 C 1044,152 1242,176 1440,200 C 1440,200 1440,400 1440,400 Z"
+          stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="1"
+          class="transition-all duration-300 ease-in-out delay-150 path-0"></path>
+      </svg>
+    </div>
+    <footer class="footer">
+      <div class="footer-left col-md-4 col-sm-6">
+        <p class="about">
+          <span> About the company</span> Ut congue augue non tellus bibendum, in varius tellus condimentum. In
+          scelerisque nibh tortor, sed rhoncus odio condimentum in. Sed sed est ut sapien ultrices eleifend. Integer
+          tellus est, vehicula eu lectus tincidunt,
+          ultricies feugiat leo. Suspendisse tellus elit, pharetra in hendrerit ut, aliquam quis augue. Nam ut nibh
+          mollis, tristique ante sed, viverra massa.
+        </p>
+        <div class="icons">
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
+          <a href="#"><i class="fa fa-google-plus"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-center col-md-4 col-sm-6">
+        <div>
+          <i class="fa fa-map-marker"></i>
+          <p><span> Street name and number</span> City, Country</p>
+        </div>
+        <div>
+          <i class="fa fa-phone"></i>
+          <p> (+00) 0000 000 000</p>
+        </div>
+        <div>
+          <i class="fa fa-envelope"></i>
+          <p><a href="#"> yummuyburger@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-right col-md-4 col-sm-6">
+        <img style="opacity:1;" src="../../images/burgerlogonaem.png">
+        <p class="menu">
+          <a href="#"> Home</a> |
+          <a href="#"> About</a> |
+          <a href="#"> Services</a> |
+          <a href="#"> Portfolio</a> |
+          <a href="#"> News</a> |
+          <a href="#"> Contact</a>
+        </p>
+        <p class="name"> YUMMY BURGER &copy; 2022</p>
+      </div>
+    </footer>
+
+    <!-- ============footer========== -->

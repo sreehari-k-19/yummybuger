@@ -1,0 +1,142 @@
+<%- include('../partials/admin-navbar.ejs') %>
+    <main>
+        <i class="fa-light fa-user-lock"></i>
+
+
+        <form method="post" action="/admin/editproduct/<%= product._id %>" enctype="multipart/form-data">
+            <div class="add-product
+        ">
+
+                <div class=" details-one">
+                    <div class="add-product-form">
+                        <label>Name</label>
+                        <input type="text" name="productname" value="<%= product.productname %>">
+                        <div style="display: flex;">
+                            <div>
+                                <label>Price</label>
+                                <input style="width:95%" type="text" name="price" value="<%= product.price %>">
+                            </div>
+                            <div>
+                                <label>Stock</label>
+                                <input style="width:95%;margin-left: 5px;" type="text" name="stock"
+                                    value="<%= product.stock %>">
+                            </div>
+
+
+                        </div>
+
+                        <label>description</label>
+                        <textarea name="desription"><%= product.desription %></textarea>
+
+                        <input type="text" style="display:none;" id="editproid" value="<%= product._id %>" />
+                    </div>
+                </div>
+                <div class="details-two" style="margin: 10px;">
+                    <div class="imgedit">
+                        <% for(var i=0; i<product.images.length; i++) { %>
+                            <div class="imgeditbox">
+                                <div class="imgdeleteicon" onclick="editdeleteimg('<%= product.images[i] %>')"><i
+                                        style="color:red;font-size:20px" class="bi bi-x-circle-fill"></i></i></div>
+                                <img src="/uploads/<%= product.images[i] %>" alt="shoe image">
+                            </div>
+
+                            <% } %>
+                                <p id="imagecount" style="display:none;">
+                                    <%= product.images.length%>
+                                </p>
+
+                                <% if(product.images.length<4) { %>
+                                    <div class="form-group mt-5">
+                                        <p>Maximam 4 image file allowed,now you can upload only ,<span style="color: red;"><%= 4-product.images.length %></span>  images</p>
+                                        <label for="">Choose Images</label>
+                                        <input type="file" class="form-control multi form-controls with-preview"
+                                        name="image" id="editupload-img" accept="png|jpg" maxlength="3" data-maxfile="1024"
+                                        multiple />
+                                    </div>
+                                    <% } %>
+
+                    </div>
+
+
+                    <!-- <div class="container mb-5">
+                        <h3 class="text-center">Upload product images</h3>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mt-5">
+                                    <label for="">Choose Images</label>
+                                    <input type="file" class="form-control" name="image" id="upload-img"
+                                        accept='image/*' multiple />
+                                </div>
+                                <div class="img-thumbs img-thumbs-hidden" id="img-preview"></div>
+
+                            </div>
+                        </div>
+
+                    </div> -->
+
+                </div>
+                <button type=" submit"
+                    style="height:40px;background:#FEA116;margin-right: 90px;border: none; padding: 8px; border-radius: 7px;">submit
+                    product</button>
+
+
+            </div>
+        </form>
+        <p class="copyright">
+            &copy; 2022 - <span>YUMMY BURGER</span> All Rights Reserved.
+        </p>
+    </main>
+    <script src="/javascripts/jquery.MultiFile.js"></script>
+    <script>
+        var imgcount = document.getElementById('imagecount').innerHTML;
+        imgcount = parseInt(imgcount)
+        var mx=4-imgcount;
+        console.log("fkhvjkaflgkfjagaghal", imgcount)
+
+        $('#editupload-img').MultiFile({
+            max: mx,
+            preview: true,
+            previewCss: 'max-height:100px; max-width:100px;',
+
+            error: function (s) {
+                if (typeof console != 'undefined') console.log(s);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: s
+                })
+
+            }
+
+        });
+
+        function editdeleteimg(imagename) {
+
+            var editproid = document.getElementById('editproid').value;
+            imgcount = parseInt(imgcount)
+
+            // editproid = parseInt(editproid)
+
+            console.log("fkhvjkaflgkfjagaghal", imagename)
+
+            $.ajax({
+                url: '/admin/removeproductImage',
+                data: {
+                    proId: editproid,
+                    imgname: imagename
+                },
+                method: 'post',
+                success: (response) => {
+                    alert("remveo img")
+                    if (response.modifiedCount == 1) {
+                        Swal.fire('Image removed').then(() => {
+                            location.reload()
+                        })
+                    } else {
+                        Swal.fire('something went wrong')
+                    }
+                }
+
+            })
+        }
+    </script>

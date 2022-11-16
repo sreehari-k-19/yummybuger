@@ -1,0 +1,161 @@
+<%- include('../partials/admin-navbar.ejs') %>
+    <main>
+        <i class="fa-light fa-user-lock"></i>
+        <div style="display:flex; justify-content:space-between">
+            <h1> Products </h1>
+            <button type="button" class="btn btn-primary"
+                style="height:40px;background:#FEA116;margin-right: 90px;border: none;" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add category</button>
+        </div>
+
+        <form method="post" action="/admin/addproduct" enctype="multipart/form-data">
+            <div class="add-product
+        ">
+
+                <div class=" details-one">
+                    <div class="add-product-form">
+                        <label>Name</label>
+                        <input type="text" name="productname" style="text-transform: uppercase;" required>
+                        <div style="display: flex;">
+                            <div>
+                                <label>Price</label>
+                                <input style="width:95%" type="text" name="price" required>
+                            </div>
+
+                            <div>
+                                <label>Stock</label>
+                                <input style="width:95%;margin-left: 5px;" type="text" name="stock" required>
+                            </div>
+
+
+                        </div>
+                        <label>Category</label>
+                        <select id="lang" name="categoryId">
+                            <% categoryList.forEach(function(category){%>
+                            
+                                    <option value="<%= category._id%>">
+                                        <%= category.categoryname %>
+                                    </option>
+                            
+
+                             <%}); %>
+                        </select>
+                        <label>description</label>
+                        <textarea name="desription"></textarea>
+                    </div>
+                </div>
+                <div class="details-two">
+
+                    <div class="container mb-5">
+                        <h3 class="text-center">Upload product images</h3>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mt-5">
+                                    <label for="">Choose Images</label>
+                                    <input type="file" class="form-control multi form-controls with-preview"
+                                        name="image" id="upload-img" accept="png|jpg" maxlength="3" data-maxfile="1024"
+                                        multiple />
+
+                                </div>
+                                <div class="img-thumbs img-thumbs-hidden" id="img-preview"></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button type=" submit" style="margin: 16px;
+                border: none;
+                border-radius: 8px;
+                background: #FEA116;
+                padding: 8px;
+            ">submit product</button>
+
+
+            </div>
+        </form>
+        <p class="copyright" style="min-height:150px; display: flex;align-items: center;">
+            &copy; 2022 - <span>YUMMY BURGER</span> All Rights Reserved.
+        </p>
+    </main>
+
+    <!-- modal add category -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="" id="addcategory">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Category name</label>
+                            <input type="text" class="form-control" name="categoryname" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Description</label>
+                            <textarea class="form-control" name="categorydescription" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick="addcategory()" class="btn btn-primary">submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="/javascripts/jquery.MultiFile.js"></script>
+    <script>
+        $('#upload-img').MultiFile({
+            max: 4,
+            preview: true,
+            previewCss: 'max-height:100px; max-width:100px;',
+
+            error: function (s) {
+                if (typeof console != 'undefined') console.log(s);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: s
+                })
+
+            }
+
+        });
+
+        function addcategory() {
+            $.ajax({
+                url: "/admin/addcategory",
+                data: $("#addcategory").serialize(),
+                method: "POST",
+                success: function (response) {
+                    console.log("ressssss", response)
+                    if (response) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Category added',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.location.href = '/admin/addproduct';
+                        })
+
+                    }
+
+                },
+                error: function (err) {
+                    Swal.fire("Error!", "Something went wrong!", "error");
+                },
+            });
+        }
+
+    </script>

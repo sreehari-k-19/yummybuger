@@ -1,0 +1,228 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+        <a href="" class="navbar-brand p-0">
+            <!-- <h1 class="text-primary m-0"><i
+            class="fa fa-utensils me-3"
+          ></i>Restoran</h1>  -->
+            <img src="/images/burgerlogo2.png" alt="Logo" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0 pe-4">
+                <a href="#" class="nav-item nav-link active">Home</a>
+                <a href="#" class="nav-item nav-link">About</a>
+                <a href="#" class="nav-item nav-link">Menu</a>
+                <a href="#" class="nav-item nav-link">Cart</a>
+                <a href="#" class="nav-item nav-link">Contact</a>
+                <div class="user-profile-icon nav-item nav-link">
+                    <img src="/images/profile icon.png">
+                    <% if(userAccount){ %>
+                        <span class="" style="color:#df2939;" data-bs-toggle="modal" data-bs-target="#signupform">
+                            <%= userAccount.name %>
+                        </span>
+                        <a href="/logout"><i class="bi bi-box-arrow-in-left"></i> </i></a>
+                        <% } else { %>
+                            <span class="" data-bs-toggle="modal" data-bs-target="#signupform">Guest/login</span>
+                            <% } %>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="signupform" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="header-logo">
+                    <div>
+                        <img src="/images/burgerlogo2.png" style="width: 85px;" class="img-fluid">
+                    </div>
+                </div>
+                <div class="wrapper">
+                    <div class="title-text">
+                        <div class="title login">Login Form</div>
+                        <div class="title signup">Signup Form</div>
+                    </div>
+                    <div class="form-container">
+                        <div class="slide-controls">
+                            <input type="radio" name="slide" id="login" checked>
+                            <input type="radio" name="slide" id="signup">
+                            <label for="login" class="slide login">Login</label>
+                            <label for="signup" class="slide signup">Signup</label>
+                            <div class="slider-tab"></div>
+                        </div>
+                        <div class="form-inner">
+                            <form action="/signin" method="POST" class="login " id="signinForm">
+
+
+                                <div class="field form-group">
+                                    <input type="email" name="email" id="username" placeholder=" ">
+                                    <label class="label-float" for="username">Email</label>
+                                </div>
+                                <div class="field form-group">
+                                    <input type="password" name="password" placeholder=" " required id="password">
+                                    <i style="color:aliceblue;position:absolute;top:14px;right:35px;"
+                                        class="bi bi-eye-slash" id="togglePassword"></i>
+                                    <label class="label-float" for="password">Password</label>
+                                </div>
+                                <div class="pass-link"><a href="#">Forgot password?</a></div>
+                                <div class="field btn">
+                                    <div class="btn-layer"></div>
+                                    <input onclick="signin()" type="submit" value="Login">
+                                </div>
+                                <div class="signup-link">Not a member? <a href="">Signup now</a></div>
+                            </form>
+                            <form  id="signupForm" class="signup">
+                                <div class="field form-group" id="user-name">
+                                    <input type="text" name="name" placeholder=" " id="name">
+                                    <label class="label-float" for="name">Name</label>
+                                </div>
+                                <div class="field form-group" id="user-email">
+                                    <input type="email" name="email" placeholder=" " id="email">
+                                    <label class="label-float" for="email">Email Address</label>
+                                </div>
+                                <div class="field form-group" id="user-phn">
+                                    <input type="text" name="phn-number" placeholder=" " id="phone-number">
+                                    <label class="label-float" for="email">phone number</label>
+                                </div>
+                                <div class="field form-group" id="user-password">
+                                    <input type="password" name="password" id="password_signin" placeholder=" "
+                                        id="password">
+                                    <label class="label-float" for="password">Password</label>
+                                </div>
+                                <div class="field form-group" id="user-confirm-password">
+                                    <input type="password" name="confirm_password" placeholder=" " required
+                                        id="password_s">
+                                    <i style="color:aliceblue;position:absolute;top:14px;right:35px;"
+                                        class="bi bi-eye-slash" id="togglePassword_s"></i>
+                                    <label class="label-float" for="password">Confirm Password</label>
+                                </div>
+                                <div class="field btn" id="signup-btn">
+                                    <div class="btn-layer"></div>
+                                    <input type="submit" value="Signup" form="notAform" id="submitbtn">
+                                </div>
+                                <div class="card-body" style="display: none;" id="otp-body">
+                                    <h4 class="card-title text-center" style="margin-top: 50px;color:#fff">OTP VERIFICATION</h4>
+                                    <P style="text-align: center;color:#fff;margin-top: 40px;">Enter the OTP number</P>
+                                    <div class="card-text text-center mt-2
+                                    ">
+                                        <div class="otp-form" id="otp-verify">
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+
+                                            <!-- Store OTP Value -->
+                                            <input class="otp-value" type="hidden" form="notAform" name="opt-value" id="otp">
+
+                                        </div>
+                                        <!-- <div class="d-block mt-4">
+                                            <button onclick="submit_signup()" form="notAform" class="btn btn-primary"
+                                                type="submit">Verify</button>
+                                        </div> -->
+        
+                                    </div>
+                                </div>
+
+                                <div class="field btn" style="display: none;" id="verfiy-button">
+                                    <div class="btn-layer"></div>
+                                    <button class="btn btn-primary" style="background-image: linear-gradient(to right, #fea116, #ffa711, #ffad0c, #ffb405, #ffba00);border:none;" form="notAform" onclick="submit_signup()">submit</button>
+                                    <!-- <input type="submit" onclick="submit_signup()" value="submit">  -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <button type="button" class="btn btn-primary"  id="otp-number" data-bs-toggle="modal" data-bs-target="#otp-number1">
+    Launch demo modal
+</button> -->
+<!-- Modal -->
+<div class="modal fade" id="otp-number1" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content number-verification">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <h4 class="card-title text-center">OTP Verificattion</h4>
+                    <div class="card-text text-center mt-5">
+                        <form class="otp-form" id="otp-verify">
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+                            <input class="otp-field" type="text" name="opt-field[]" maxlength=1>
+
+                            <!-- Store OTP Value -->
+                            <input class="otp-value" type="hidden" name="opt-value">
+
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".otp-form *:input[type!=hidden]:first").focus();
+        let otp_fields = $(".otp-form .otp-field"),
+            otp_value_field = $(".otp-form .otp-value");
+        otp_fields
+            .on("input", function (e) {
+                $(this).val(
+                    $(this)
+                        .val()
+                        .replace(/[^0-9]/g, "")
+                );
+                let opt_value = "";
+                otp_fields.each(function () {
+                    let field_value = $(this).val();
+                    if (field_value != "") opt_value += field_value;
+                });
+                otp_value_field.val(opt_value);
+            })
+            .on("keyup", function (e) {
+                let key = e.keyCode || e.charCode;
+                if (key == 8 || key == 46 || key == 37 || key == 40) {
+                    // Backspace or Delete or Left Arrow or Down Arrow
+                    $(this).prev().focus();
+                } else if (key == 38 || key == 39 || $(this).val() != "") {
+                    // Right Arrow or Top Arrow or Value not empty
+                    $(this).next().focus();
+                }
+            })
+            .on("paste", function (e) {
+                let paste_data = e.originalEvent.clipboardData.getData("text");
+                let paste_data_splitted = paste_data.split("");
+                $.each(paste_data_splitted, function (index, value) {
+                    otp_fields.eq(index).val(value);
+                });
+            });
+    });
+
+
+</script>
+
+<script src="/javascripts/signupform.js"></script>

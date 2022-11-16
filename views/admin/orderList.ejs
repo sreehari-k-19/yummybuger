@@ -1,0 +1,130 @@
+<%- include('../partials/admin-navbar.ejs') %>
+    <main class="product">
+        <i class="fa-light fa-user-lock"></i>
+
+        <h1> Order <i class="fa-solid fa-user-unlock"></i> </h1>
+
+
+        <table id="table_id">
+            <thead>
+                <tr>
+                    <th>Order date</th>
+                    <th>Total amount</th>
+                    <th>Payement method</th>
+                    <!-- <th>Payement status</th> -->
+                    <th>Shipping status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(function(order){ %>
+                    <tr>
+                        <td data-label="Projeto">
+                            <%= order.date %>
+                        </td>
+                        <td data-label="Administrador">
+                            <i class="bi bi-currency-rupee"></i>
+                            <%= order.totalamount.total %>
+                        </td>
+                        <td data-label="Criado">
+                            <%= order.paymentmethod %>
+                        </td>
+                        <!-- <td data-label="Criado" style="text-align:left ;">
+                            <%= order.payementstatus %>
+                        </td> -->
+
+                        <td>
+
+
+                            <select name="status" id="status<%= order._id %>" style="width:140px; font-size:14px"
+                                class="btn btn-success" onchange="setStatus('<%= order._id%>')">
+                                <% if (order.orderstatus=="placeOrder" ) { %>
+                                    <option value="<%= order.orderstatus %>">
+                                        <%= order.orderstatus %>
+                                    </option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Shipped">Shipped</option>
+                                    <option value="Out for Delivery">Out for Delivery</option>
+                                    <option value="Delivered">Delivered</option>
+
+                                    <% } else if ( order.orderstatus=="Approved" ) { %>
+                                        <option value="<%= order.orderstatus %>">
+                                            <%= order.orderstatus %>
+                                        </option>
+                                        <option value="Shipped">Shipped</option>
+                                        <option value="Out for Delivery">Out for Delivery</option>
+                                        <option value="Delivered">Delivered</option>
+                                    <% } else if ( order.orderstatus=="Shipped" ) { %>
+
+                                        <option value="<%= order.orderstatus %>">
+                                            <%= order.orderstatus %>
+                                        </option>
+                                        <option value="Out for Delivery">Out for Delivery</option>
+                                        <option value="Delivered">Delivered</option>
+                                        <% } else if ( order.orderstatus=="Out for Delivery" ) { %>
+                                            <option value="<%= order.orderstatus %>">
+                                                <%= order.orderstatus %>
+                                            </option>  
+                                            <option value="Delivered">Delivered</option>
+                                        <% } else { %>
+
+                                            <option value="<%= order.orderstatus %>">
+                                                <%= order.orderstatus %>
+                                            </option>  
+
+                                            <% } %>
+                            </select>
+
+                        </td>
+                        <td data-label="Criado"><a href="" class="btn btn-info">order details</a></td>
+
+
+                    </tr>
+                    <% }); %>
+
+
+            </tbody>
+        </table>
+        <p class="copyright">
+            &copy; 2022 - <span>YUMMY BURGER</span> All Rights Reserved.
+        </p>
+    </main>
+    <script>
+        function setStatus(id) {
+
+            const status = document.getElementById(`status${id}`).value
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Update status',
+                denyButtonText: `Don't Update`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                 
+                    $.ajax
+                        ({
+                            url: '/admin/change-orderstatus',
+                            data:
+                            {
+                                orderId: id,
+                                status: status,
+                            },
+                            method: 'post',
+                            success: (response) => {
+                                if (response.status) {
+                                    Swal.fire('Saved!', '', 'success').then(()=>{
+                                        location.reload()
+                                    })
+                                }
+
+                            }
+                        })
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                }
+            })
+
+        }
+
+    </script>

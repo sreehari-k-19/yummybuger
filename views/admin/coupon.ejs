@@ -1,0 +1,142 @@
+<%- include('../partials/admin-navbar.ejs') %>
+    <main style="padding:2rem 4rem 2em 4rem">
+        <div style="display:flex; justify-content: space-between;">
+
+            <h1>Category</h1>
+            <button type="button" id="categoryedit" class="btn btn-primary" style="height:42px; background:#FEA116;"
+                data-bs-toggle="modal" data-bs-target="#categoryModal" data-bs-whatever="@mdo">Add coupon</button>
+        </div>
+        <table id="table_id">
+            <thead>
+                <tr>
+                    <th>Coupon code</th>
+                    <th>Coupon offer</th>
+                    <th style="text-align: center;">Min-total</th>
+                    <th>Delete</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% coupons.forEach(function(coupon){ %>
+                    <tr>
+                        <td data-label="Projeto">
+                            <%= coupon.couponcode %>
+                        </td>
+                        <td data-label="Administrador">
+                            <%= coupon.couponamount %>
+                        </td>
+
+                        <td style="text-align: center;">
+                            <%= coupon.mintotal %>
+                            
+                        </td>
+                        <td data-label="">
+                            <a onclick="deletecoupon(event)" href="/admin/deletecoupon/<%= coupon._id %>">
+                                <div class="" style="margin-right:5rem ;color:red">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </div>
+                            </a>
+
+                        </td>
+
+                    </tr>
+                    <% }); %>
+
+
+            </tbody>
+            <p class="copyright">
+        </table>
+        &copy; 2022 - <span>YUMMY BURGER</span> All Rights Reserved.
+        </p>
+    </main>
+
+    <!-- modal add category -->
+
+    <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add coupon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="coupon">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">coupon code</label>
+                            <input type="text" class="form-control" id="couponcode" value="" name="couponcode"
+                                required />
+                        </div>
+                        <div style="display:flex;justify-content: space-between;">
+
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Discount amount</label>
+                                <input type="number" class="form-control" id="couponamount" value="" name="couponamount"
+                                    required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Min total</label>
+                                <input type="number" class="form-control" id="mintotal" value="" name="mintotal"
+                                    required />
+                            </div>
+                        </div>
+
+                    </form>
+                    <span style="display:none;" id="catId"></span>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button onclick="addcoupon()" class="btn btn-primary">submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Script>
+
+            function addcoupon() {
+                $.ajax({
+                    url: '/admin/addcoupon',
+                    data: $("#coupon").serialize(),
+                    method: "POST",
+                    success: function (response) {
+
+                        if (response.status) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'coupon added',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload();
+                            })
+
+                        }
+
+                    },
+                    error: function (err) {
+                        Swal.fire("Error!", "Something went wrong!", "error");
+                    },
+                });
+            }
+        </Script>
+
+<script>
+    function deletecoupon(ev) {
+        alert("dele")
+        ev.preventDefault();
+        var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+        console.log(urlToRedirect); // verify if this is the right URL
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to delete this product",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlToRedirect
+            }
+        });
+    }  
+</script>
