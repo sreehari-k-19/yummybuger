@@ -175,7 +175,7 @@ module.exports = {
     res.redirect('/');
   },
   userdeactivate: (req, res) => {
-    console.log("deactivateeeeeee",res.locals.activeUser.id)
+    console.log("deactivateeeeeee", res.locals.activeUser.id)
     models.deactivate(res.locals.activeUser.id).then(() => {
       console.log("deactiv55555555555")
       res.cookie('userjwt', '', { maxAge: 1 })
@@ -393,6 +393,15 @@ module.exports = {
   },
   up: (req, res) => {
     res.render('user/up', { user: true })
+  },
+  checkpincode: (req, res) => {
+    console.log(req.body)
+    models.checkPincode(req.body.pincode).then((response) => {
+      res.json({ status: true })
+    }).catch(() => {
+      res.json({ status: false })
+
+    })
   }
 
 

@@ -217,52 +217,25 @@
 
                             </div>
                             <% console.log("dfsdfsdfsdfffffff",cartTotal.discount) %>
-                           
-                            <% if(cartTotal.discount == 0){ %>
 
-                                <div class="total-price my-2" style="display:none ;color:white" ; id="subtotaldiv">
-                                    <div>
-                                        <h6>Sub Total</h6>
-                                    </div>
-                                    <div>
-                                        <h6 id="subtotal">Rs<%= cartTotal.total %>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="total-price my-2" style="display:none; color:green;" id="discountpricediv">
-                                    <div>
-                                        <h6>Discount</h6>
-                                    </div>
-                                    <div>
-                                        <h6 id="discountprice">Rs<%= cartTotal.discount %>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="total-price my-2">
-                                    <div>
-                                        <h3> Total</h3>
-                                    </div>
-                                    <div>
-                                        <h3 id="totalamnt">Rs <%= cartTotal.total %>
-                                        </h3>
-                                    </div>
-                                </div>
-                                <% }else{%>
-                                    <div class="total-price my-2" style="color:white;"  id="subtotaldiv">
+                                <% if(cartTotal.discount==0){ %>
+
+                                    <div class="total-price my-2" style="display:none ;color:white" ; id="subtotaldiv">
                                         <div>
                                             <h6>Sub Total</h6>
                                         </div>
                                         <div>
-                                            <h6 id="subtotal">Rs <%= cartTotal.total+cartTotal.discount %>
+                                            <h6 id="subtotal">Rs<%= cartTotal.total %>
                                             </h6>
                                         </div>
                                     </div>
-                                    <div class="total-price my-2" style=" color:green;" id="discountpricediv">
+                                    <div class="total-price my-2" style="display:none; color:green;"
+                                        id="discountpricediv">
                                         <div>
                                             <h6>Discount</h6>
                                         </div>
                                         <div>
-                                            <h6 id="discountprice">Rs <%= cartTotal.discount %>
+                                            <h6 id="discountprice">Rs<%= cartTotal.discount %>
                                             </h6>
                                         </div>
                                     </div>
@@ -275,7 +248,35 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <% } %>
+                                    <% }else{%>
+                                        <div class="total-price my-2" style="color:white;" id="subtotaldiv">
+                                            <div>
+                                                <h6>Sub Total</h6>
+                                            </div>
+                                            <div>
+                                                <h6 id="subtotal">Rs <%= cartTotal.total+cartTotal.discount %>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="total-price my-2" style=" color:green;" id="discountpricediv">
+                                            <div>
+                                                <h6>Discount</h6>
+                                            </div>
+                                            <div>
+                                                <h6 id="discountprice">Rs <%= cartTotal.discount %>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="total-price my-2">
+                                            <div>
+                                                <h3> Total</h3>
+                                            </div>
+                                            <div>
+                                                <h3 id="totalamnt">Rs <%= cartTotal.total %>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <% } %>
                         </div>
                     </div>
 
@@ -479,11 +480,16 @@
                 phoneErr.style.display = 'none';
                 return true;
             }
-            function validatePincode() {
+            async function validatePincode() {
                 var pincode = document.getElementById('firstnamedl').value;
+
+                //    let ab= validatepinnum()
+                var pincode = document.getElementById('firstnamedl').value;
+
                 pincodeErr.style.display = 'block';
                 if (pincode.length == 0) {
                     pincodeErr.innerHTML = 'pincode is required';
+
                     return false;
                 }
 
@@ -491,13 +497,108 @@
                     pincodeErr.innerHTML = 'Pincode is wrong';
                     return false;
                 }
-
+                let xy = await checkpinco()
+                
+                if (xy == false) {
+                    
+                    return false;
+                }
+                
+                return true;
                 pincodeErr.innerHTML = ""
                 pincodeErr.style.display = 'none';
-                return true
+                
+          
+
+
             }
+
             function removeError(errId) {
                 document.getElementById(`${errId}`).style.display = "none"
+            }
+            async function checkpinco() {
+                var pincode = document.getElementById('firstnamedl').value;
+
+                pincodeErr.style.display = 'block';
+                let p = await checkpin(pincode).then((response) => {
+                    
+                    if (response) {
+                        pincodeErr.innerHTML = ""
+                        pincodeErr.style.display = 'none';
+
+                        return true;
+                    } else {
+                        pincodeErr.innerHTML = 'Delivary not avilable to this pincode';
+                        return false;
+                    }
+
+                })
+                return p
+            }
+            function validatepinnum() {
+
+
+            }
+
+
+
+            // function checkpin(pincode) {
+
+            //      $.ajax({
+            //         url: '/checkpincode',
+            //         data: {
+            //             pincode: pincode
+            //         },
+            //         method: 'get',
+            //         success: function (response) {
+            //             if (response.status) {
+            //                 return true;
+            //             } else {
+            //                 // Swal.fire({
+            //                 //     icon: 'error',
+            //                 //     title: 'Oops...',
+            //                 //     text: 'Delivary to this pincode not avilable!',
+            //                 // }).then(() => {
+            //                 //     return false;
+            //                 // })
+            //                 return true;
+            //             }
+            //         },
+            //         error: function (err) {
+            //             Swal.fire("Error!", "Something went wrong!", "error");
+            //         },
+            //     })
+
+            // }
+            function checkpin(pincode) {
+               
+                return new Promise(async (resolve, reject) => {
+                    await $.ajax({
+                        url: '/checkpincode',
+                        data: {
+                            pincode: pincode
+                        },
+                        method: 'post',
+                        success: function (response) {
+                            if (response.status) {
+                                resolve(true)
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Delivary to this pincode not avilable!',
+                                }).then(() => {
+                                    resolve(false)
+
+                                })
+                            }
+                        },
+                        error: function (err) {
+                            Swal.fire("Error!", "Something went wrong!", "error");
+                        },
+                    })
+                })
             }
 
 
@@ -545,10 +646,11 @@
             }
 
 
-            function placeorder() {
-
-                if (validatePincode() && validateName() && validateAddress() && validatelandmark() && validateCity() && validateState() && validateEmail() && validatePhone() && validatePayement() || validateRadio() && validatePayement()) {
-                    placeordercnfm()
+            async function placeorder() {
+                let pin=await validatePincode()
+                if (pin && validateName() && validateAddress() && validatelandmark() && validateCity() && validateState() && validateEmail() && validatePhone() && validatePayement() || validateRadio() && validatePayement()) {
+                     placeordercnfm()
+                  
                 }
 
             }

@@ -11,13 +11,9 @@
                             <div>
                                 <a href="/">
                                     <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="40" fill="currentColor"
-                                            class="bi bi-house-door" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
-                                        </svg>
+                                        <i class="bi bi-house-door"></i>
                                     </div>
-                                    <div>Home</div>
+                                    <div class="prfnt">Home</div>
                                 </a>
                             </div>
                         </li>
@@ -25,9 +21,9 @@
                             <div>
                                 <a href="/profile">
                                     <div>
-                                        <i style="font-size: 40px; ;" class="bi bi-person-circle"></i>
+                                        <i  class="bi bi-person-circle"></i>
                                     </div>
-                                    <div>Profile</div>
+                                    <div class="prfnt">Profile</div>
                                 </a>
                             </div>
                         </li>
@@ -35,13 +31,13 @@
                             <div>
                                 <a href="#">
                                     <div>
-                                        <i style="font-size: 40px;"class="bi bi-info-circle"></i>
+                                        <i  class="bi bi-info-circle"></i>
                                     </div>
-                                    <div>About</div>
+                                    <div class="prfnt">About</div>
                                 </a>
                             </div>
                         </li>
-                        
+
                     </ul>
                 </div>
 
@@ -56,37 +52,19 @@
         </div>
         <div>
             <div class="nav-right">
-                <div class="px-3" sty><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#F1F8FF"
-                        class="bi bi-heart-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                    </svg></div>
-                <div class="px-3"><a href="/cart"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
-                            fill="#F1F8FF" class="bi bi-basket-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z" />
-                        </svg><span class="badge bg-success" id="cart-count">
+                <div class="px-3"><i  class="bi bi-heart-fill"></i></div>
+                <div class="px-3 cart-nav"><a href="/cart"><i  class="bi bi-basket-fill"></i><span
+                            class="badge bg-success" id="cart-count">
                             <%= cartCount %>
                         </span></a></div>
                 <div class="px-3" data-bs-toggle="modal" data-bs-target="#signupform">
                     <% if(userAccount){ %>
                         <img src="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg"
                             alt="" class="image--cover" />
-                        <a class="mx-2" href="/logout"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="30"
-                                fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
-                                <path fill-rule="evenodd"
-                                    d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
-                            </svg></a>
+                        <a class="mx-2" href="/logout"><i   class="bi bi-box-arrow-left"></i></a>
 
                         <% } else { %>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#F1F8FF"
-                                class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                <path fill-rule="evenodd"
-                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                            </svg>
+                            <i  class="bi bi-person-circle"></i>
                             <% } %>
                 </div>
             </div>

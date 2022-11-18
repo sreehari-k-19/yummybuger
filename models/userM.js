@@ -6,6 +6,7 @@ const { response } = require('express')
 const objectId = require('mongodb').ObjectId
 const Razorpay = require("razorpay")
 const { resolve } = require('path')
+const { log } = require('console')
 var instance = new Razorpay({
     key_id: 'rzp_test_vKo6XcqfARa4uS',
     key_secret: 'gfdd5UH35ZRN49JHXTZpbsjs',
@@ -77,14 +78,14 @@ module.exports = {
             })
         })
     },
-    deactivate:(userId)=>{
-        return new Promise((resolve,reject)=>{
+    deactivate: (userId) => {
+        return new Promise((resolve, reject) => {
             db.get().collection(collection.USER_DETAILS).updateOne({ _id: objectId(userId) }, {
                 $set: {
                     blockStatus: true
                 }
             }).then((response) => {
-               
+
                 resolve();
             })
         })
@@ -598,14 +599,36 @@ module.exports = {
     },
     addprofile: (userpic, userId) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.USER_DETAILS).updateOne({ _id: objectId(userId) },{
+            db.get().collection(collection.USER_DETAILS).updateOne({ _id: objectId(userId) }, {
                 $set: {
                     profileimage: userpic
                 }
-            }).then(()=>{
+            }).then(() => {
                 resolve()
             })
 
+        })
+    },
+    checkPincode: (pincod) => {
+        return new Promise(async (resolve, reject) => {
+            let pin = await db.get().collection(collection.PINCODE).aggregate(
+                [{ $match: { pincode: pincod } }]
+            ).toArray();
+            if (pin.length == 0) {
+                reject()
+            }else{
+                resolve()
+            }
+
+        })
+
+
+    },
+    getPincode: () => {
+        return new Promise(async (resolve, reject) => {
+            let pincode = await db.get().collection(collection.PINCODE).find().toArray()
+            console.log(pincode);
+            // resolve(pincode)
         })
     }
 

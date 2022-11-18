@@ -94,9 +94,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 58px;
+    height: 40px;
     cursor: pointer;
-    width: 130px;
+    width: 80px;
 
 }
 
@@ -119,6 +119,10 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+/* floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+} */
 /*** Navbar ***/
 
 
@@ -365,6 +369,7 @@ input::-webkit-inner-spin-button {
     top: -13px;
 }
 
+
 /* menu btn */
 
 .burger-menu .menu-btn {
@@ -399,10 +404,94 @@ input::-webkit-inner-spin-button {
     width: 90px;
 }
 
+@media only screen and (max-width: 600px) {
+    .nav-logo img {
+        width: 60px;
+    }
+
+    .nav-section-s {
+        height: 50px;
+    }
+
+    .burger-menu {
+        max-width: 40px;
+        max-height: 30px;
+    }
+
+    .burger-menu .menu-icon {
+        padding: 5px;
+    }
+
+    .burger-menu .menu-icon .navicon {
+        height: 2px;
+        width: 27px;
+        ;
+        border-radius: 5px;
+    }
+
+    .burger-menu .menu-icon .navicon:before,
+    .burger-menu .menu-icon .navicon:after {
+        height: 2px;
+        width: 27px;
+    }
+}
+
+@media only screen and (max-width: 738px) {
+    .background {
+        min-height: 100%;
+    }
+}
+
 .nav-right {
     display: flex;
     justify-content: space-between;
 }
+
+.nav-right .bi {
+    font-size: 25px;
+    color: white;
+}
+
+.nav-right .cart-nav {
+    position: relative;
+}
+
+.nav-right .cart-nav .badge {
+    position: absolute;
+    border-radius: 35%;
+
+}
+
+.burger-menu .bi {
+    font-size: 40px;
+    color: #fff;
+}
+
+@media only screen and (max-width: 550px) {
+    .nav-right .bi {
+        font-size: 18px;
+        color: white;
+    }
+
+    .nav-right .cart-nav .badge {
+
+        font-size: 10px;
+    }
+
+    .burger-menu .bi {
+        font-size: 22px;
+        color: #fff;
+    }
+
+    .burger-menu .prfnt {
+        font-size: 8px;
+    }
+
+    /* .header {
+        top: 25px;
+    } */
+}
+
 
 .len {
     height: 100px;
@@ -493,6 +582,13 @@ input::-webkit-inner-spin-button {
 @media screen and (max-width: 800px) {
     .menu-category .category-table {
         min-height: 410px;
+
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .menu-category .category-table {
+        min-height: 540px;
 
     }
 }

@@ -11,13 +11,15 @@
             sit clita duo justo magna dolore erat amet</p>
           <!-- <a href="" class="btn py-sm-3 px-sm-5 me-3 animated slideInLeft">Order
             now</a> -->
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center justify-content-center">
+
             <div class="form-floating m-2">
-              <input type="number" name="pincode" class="form-control pincheckinput"  id="floatingInput" placeholder="Pincode">
+              <input type="number" name="pincode" style="height:40px;" class="form-control pincheckinput" id="pincode"
+                placeholder="Pincode">
               <label for="floatingInput" style="color: #df2939">Pincode </label>
             </div>
-            <div class="pincheck  animated slideInLeft">Order
-              now</div>
+
+            <div class="pincheck  animated slideInLeft" onclick="checkpincode()">check</div>
           </div>
         </div>
         <div class="col-lg-6 text-center text-lg-end animate__animated animate__slideInDown animate__slow_1s">
@@ -287,3 +289,33 @@
     </footer>
 
     <!-- ============footer========== -->
+
+    <script>
+
+      function checkpincode() {
+        let pin = document.getElementById('pincode').value
+
+        $.ajax({
+          url: '/checkpincode',
+          data: {
+            pincode: pin
+          },
+          method: 'post',
+          success: function (response) {
+            if (response.status) {
+              Swal.fire("available!", "Delivary available to this pincode " + pin, "success");
+
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Sorry...',
+                text: 'Delivary to this pincode ' + pin + ' not avilable!',
+              })
+            }
+          },
+          error: function (err) {
+            Swal.fire("Error!", "Something went wrong!", "error");
+          },
+        })
+      }
+    </script>

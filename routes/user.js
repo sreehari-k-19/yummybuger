@@ -90,4 +90,6 @@ router.post('/checkcoupon',tokenVerify.verifyJwtToken,userController.checkcoupon
 
 router.get('/userdeactivate',tokenVerify.verifyJwtToken,userController.userdeactivate)
 
+router.post('/checkpincode',userController.checkpincode)
+
 module.exports = router;
