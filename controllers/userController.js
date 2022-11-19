@@ -7,6 +7,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 const tokenCreate = require('../middlewares/jwt');
 const { ObjectId } = require("mongodb");
+const { removeWhishlistProduct } = require("../models/userM");
 const maxAge = 10 * 24 * 60 * 60;
 
 client.verify.v2.services.create({ friendlyName: 'first verify service' }).then(service => console.log(service.id))
@@ -41,15 +42,14 @@ module.exports = {
     let cartCount = 0;
     if (res.locals.activeUser) {
       cartCount = await models.getCartCount(res.locals.activeUser.id)
+      cartCount =cartCount.products.length
     }
+    console.log(cartCount,"crtcuntttttttttttttttttttttt")
     models.fetchProductList().then((products) => {
-      console.log(".............", products)
       res.render('user/home', { title: 'yummyburger', user: true, userAccount: res.locals.activeUser, products: products, cartCount: cartCount });
     })
   },
   notLogin: (req, res) => {
-
-
     let cartCount = 0;
     let cartTotal = 0;
     res.render('user/accountno', { user: true, userAccount: res.locals.activeUser, cartCount: cartCount })
@@ -142,7 +142,6 @@ module.exports = {
     // let number = parseInt(req.body.number);
     let number = req.body.number;
     let otp = req.body?.otp;
-    console.log("tppppppppppp", number)
     client.verify.services(process.env.TWILIO_SERVICE_SID).verificationChecks.create({ to: `+91${number}`, code: otp })
       .then((resp) => {
         console.log(req.body.number);
@@ -175,9 +174,7 @@ module.exports = {
     res.redirect('/');
   },
   userdeactivate: (req, res) => {
-    console.log("deactivateeeeeee", res.locals.activeUser.id)
     models.deactivate(res.locals.activeUser.id).then(() => {
-      console.log("deactiv55555555555")
       res.cookie('userjwt', '', { maxAge: 1 })
       res.json({ status: true })
     })
@@ -236,8 +233,7 @@ module.exports = {
   addtocart: (req, res) => {
     console.log("....... ", req.params)
     models.addCart(req.params, res.locals.activeUser.id).then((response) => {
-      console.log("fdskjaaaaaal");
-      res.json({ status: true });
+      res.json(response);
     })
   },
   countCart: (req, res) => {
@@ -402,7 +398,38 @@ module.exports = {
       res.json({ status: false })
 
     })
-  }
+  },
+  addtowhishlist: (req, res) => {
+    models.addtowhishlist(req.body.proId, res.locals.activeUser.id).then(() => {
+      res.json({ status: true })
+    }).catch(() => {
+      res.json({ status: false })
+    })
+  },
+  whishlist: (req, res) => {
+    models.getWhishlist(res.locals.activeUser.id).then((whishlist) => {
+      if (whishlist.length == 0) {
+        res.redirect('/')
+      } else {
+        res.render("user/whishlist", { user: true, whishlists: whishlist })
+      }
+    })
+  },
+  getwhishlist: (req, res) => {
+    models.getWhishlist(res.locals.activeUser.id).then((whishlist) => {
+      if (whishlist.length == 0) {
+        res.json({ status: false })
+      } else {
+        res.json({ status: true })
 
+      }
+    })
+  },
+  removeWhishlistProduct: (req, res) => {
+    console.log(req.body)
+    models.removeWhishlistProduct(req.body).then(() => {
+      res.json({ status: true })
+    })
+  }
 
 }

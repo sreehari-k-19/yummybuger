@@ -137,7 +137,7 @@
                 data: $("#addcategory").serialize(),
                 method: "POST",
                 success: function (response) {
-                    console.log("ressssss", response)
+                   
                     if (response) {
                         Swal.fire({
                             position: 'top-end',
@@ -146,7 +146,7 @@
                             showConfirmButton: false,
                             timer: 2000
                         }).then(() => {
-                            window.location.href = '/admin/addproduct';
+                            window.location.href = '/admin/productlist';
                         })
 
                     }

@@ -32,11 +32,11 @@
 
                             <td style="text-align:center ;" data-label="">
 
-                                <a onclick="pincodeBlock(event)" href="">
+                                <div onclick="pincodeDelete('<%= pincode._id %>')">
                                     <div class="" style="margin-right:5rem ;color:red">
                                         <i class="bi bi-trash3-fill"></i>
                                     </div>
-                                </a>
+                                </div>
 
                             </td>
 
@@ -108,7 +108,7 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             }).then(() => {
-                                window.location.href = '/admin/addproduct';
+                                window.location.href = '/admin/pincode';
                             })
 
                         }
@@ -118,6 +118,46 @@
                         Swal.fire("Error!", "Something went wrong!", "error");
                     },
                 });
+            }
+            function pincodeDelete(id) {
+                Swal.fire({
+                    title: 'Do you want to save the changes?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Delete',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/admin/pincodeDelete",
+                            data: {
+                                id: id
+                            },
+                            method: "POST",
+                            success: function (response) {
+                                console.log("ressssss", response)
+                                if (response) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'pincode Deleted',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    }).then(() => {
+                                        window.location.href = '/admin/pincode';
+                                    })
+
+                                }
+
+                            },
+                            error: function (err) {
+                                Swal.fire("Error!", "Something went wrong!", "error");
+                            },
+                        });
+                    } 
+                })
+
             }
 
         </script>

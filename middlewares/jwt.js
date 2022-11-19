@@ -31,6 +31,27 @@ module.exports = {
 
         }
     },
+    homeverifyJwtToken: (req, res, next) => {
+
+        const token = req.cookies.userjwt
+        if (token) {
+            jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
+                if (err) {
+                    console.log(err.message, 'jwt error');
+                    res.redirect('/');
+                } else {
+                    console.log(decodedToken, 'decoded the token');
+                    res.locals.activeUser = decodedToken
+                    console.log('HELLFOEFFJJ')
+                    next()
+                }
+            })
+        } else {
+            next()
+            
+
+        }
+    },
     createTokenAdmin: (id, name) => {
         return jwt.sign({ id, name }, process.env.JWT_SECRET_KEY_ADMIN, {
             expiresIn: maxAge

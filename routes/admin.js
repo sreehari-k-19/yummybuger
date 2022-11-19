@@ -104,4 +104,8 @@ router.get('/pincode',adminController.pincode)
 
 router.post('/addpincode',adminController.addpincode)
 
+router.post('/pincodeDelete',adminController.pincodeDelete)
+
+router.get('/vieworder/:id',adminController.orderedProducts)
+
 module.exports = router;

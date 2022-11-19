@@ -22,9 +22,12 @@
     <div class="menu-filter-button filters m-3">
         <div class="button-group js-radio-button-group" data-filter-group="color">
             <button class="button filter-button is-checked" data-filter="">all</button>
-            <button class="button filter-button wow animate__slideInLeft" data-wow-duration="1.0s" data-filter=".food">food</button>
-            <button class="button filter-button wow animate__slideInLeft" data-wow-duration="1.0s" data-filter=".snacks">snacks</button>
-            <button class="button filter-button wow animate__slideInLeft" data-wow-duration="1.0s" data-filter=".beverages">beverages</button>
+            <button class="button filter-button wow animate__slideInLeft" data-wow-duration="1.0s"
+                data-filter=".food">food</button>
+            <button class="button filter-button wow animate__slideInLeft" data-wow-duration="1.0s"
+                data-filter=".snacks">snacks</button>
+            <button class="button filter-button wow animate__slideInLeft" data-wow-duration="1.0s"
+                data-filter=".beverages">beverages</button>
         </div>
 
     </div>
@@ -33,12 +36,13 @@
             <div class="menu-list">
                 <% products.forEach(function(product){%>
                     <% console.log( product.categoryDetails[0].categoryname)%>
-                        <div class="menu-card m-3 <%= product.categoryDetails[0].categoryname %> wow animate__zoomIn"   data-wow-duration="2.0s">
-
+                        <div class="menu-card m-3 <%= product.categoryDetails[0].categoryname %> wow animate__zoomIn"
+                            data-wow-duration="2.0s">
                             <a style="text-decoration:none ;" href="/productdetails/<%= product._id %>">
                                 <div class="card-content">
                                     <div class="menu-image">
-                                        <span><i class="bi bi-heart"></i></span>
+                                        <span style="z-index:499" onclick="addtowhishlist('<%= product._id %>')"><i
+                                                class="bi bi-heart"></i></span>
                                         <img src="/images/burger1.png">
                                     </div>
                                     <div class="menu-content px-2">
@@ -55,14 +59,13 @@
                                                 </h4>
                                             </div>
                             </a>
-
                             <!-- href="/addtocart/<%= product._id %>" -->
-                            <div style="text-decoration: none; color: #000;" onclick="addtoCart('<%= product._id %>','<%= product.productname %>')">
+                            <div style="text-decoration: none; color: #000;"
+                                onclick="addtoCart('<%= product._id %>','<%= product.productname %>')">
                                 <div class="addtobag">
                                     <i class="bi bi-basket"></i>
                                 </div>
                             </div>
-
                         </div>
             </div>
         </div>
@@ -72,3 +75,34 @@
     </div>
     </section>
     </div>
+
+    <script>
+
+        function addtowhishlist(id) {
+
+            $.ajax({
+                url: '/addtowhishlist',
+                data: {
+                    proId: id
+                },
+                method: 'post',
+                success: function (response) {
+                    if (response.status) {
+                    
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'add to whishlist',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        Swal.fire('This product already in whishlist')
+                    }
+                },
+                error: function (err) {
+                    Swal.fire("Error!", "Something went wrong!", "error");
+                },
+            })
+        }
+    </script>

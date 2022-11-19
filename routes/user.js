@@ -35,7 +35,7 @@ const imageStorage = multer.diskStorage({
   }) 
   
 
-router.get('/',userController.home)
+router.get('/',tokenVerify.homeverifyJwtToken ,userController.home)
 
 router.post('/signup', userController.userSignup)
 
@@ -91,5 +91,13 @@ router.post('/checkcoupon',tokenVerify.verifyJwtToken,userController.checkcoupon
 router.get('/userdeactivate',tokenVerify.verifyJwtToken,userController.userdeactivate)
 
 router.post('/checkpincode',userController.checkpincode)
+
+router.post('/addtowhishlist',tokenVerify.verifyJwtToken,userController.addtowhishlist)
+
+router.get('/whishlist',tokenVerify.verifyJwtToken,userController.whishlist)
+
+router.get('/getwhishlist',tokenVerify.verifyJwtToken,userController.getwhishlist)
+
+router.post('/removeWhishlistProduct',userController.removeWhishlistProduct)
 
 module.exports = router;

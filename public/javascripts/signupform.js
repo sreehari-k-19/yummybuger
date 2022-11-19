@@ -63,16 +63,24 @@ inputs.forEach((input) => {
 
 
 function addtoCart(proId,proName) {
-  // alert(proName)
   $.ajax({
     url: `/addtocart/${proId}/${proName}`,
     method: "get",
     success: function (response) {
-      // alert(response)
+
       if (response.status) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'addtocart',
+          showConfirmButton: false,
+          timer: 1500
+        })
         let count = $('#cart-count').html()
         count = parseInt(count) + 1
         $('#cart-count').html(count)
+      }else{
+        Swal.fire("Already in cart !");
       }
     },
     error: function (err) {

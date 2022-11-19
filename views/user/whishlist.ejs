@@ -1,0 +1,139 @@
+<div class="cart navfull">
+
+
+    <div class="container-fluid">
+        <div class="cart-container">
+            <div class="cart-header container">
+                <h3>Your whishlist</h3>
+            </div>
+            <div class="cart-section my-5">
+                <div class="cart-body" style="    grid-template-columns: 1fr ;width: 70%;">
+                    <div>
+                        <% whishlists.forEach(function(whishlist){%>
+                            <div class="cart-item py-2">
+
+                                <div class=cart-details>
+                                    <div class="product-img">
+                                        <img src="/uploads/<%= whishlist.product.images[0] %>">
+                                    </div>
+                                    <div class="product-details">
+                                        <p class="product-name">
+                                            <%= whishlist.product.productname %>
+                                        </p>
+                                        <p class="product-price">
+                                            <i class="bi bi-currency-rupee">
+                                                <%= whishlist. product.price %>
+                                            </i>
+                                        </p>
+                                        <p class="product-description">
+                                            <%= whishlist.product.desription %>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                                <div class="item-total">
+                                    <h3> <i class="bi bi-currency-rupee">
+                                            <%= whishlist. product.price %>
+                                        </i></h3>
+                                </div>
+                                <div class="whishlist-addtocart">
+                                    <div
+                                        onclick="addtoCart('<%= whishlist.product._id %>','<%= whishlist.product.productname %>')">
+                                        <div class="addtobag" style="    background: #171717;
+                                        padding: 9px;
+                                        border-radius: 28px;">
+                                            <i style="color:#FEA116;font-size: 22px;" class="bi bi-basket"></i>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="cart-item-cancel">
+
+                                    <div class=""
+                                        onclick=" removewhishlist('<%= whishlist._id %>','<%= whishlist.product._id %>','<%= whishlist.product.productname %>')">
+                                        <i style="color:#FEA116 ;" class="bi bi-x-lg"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <%}); %>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function addtoCart(proId, proName) {
+        //    alert(proName)
+        $.ajax({
+            url: `/addtocart/${proId}/${proName}`,
+            method: "get",
+            success: function (response) {
+                // alert(response)
+                if (response.status) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'addtocart',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    let count = $('#cart-count').html()
+                    count = parseInt(count) + 1
+                    $('#cart-count').html(count)
+                }
+            },
+            error: function (err) {
+                Swal.fire("Error!", "Something went wrong!", "error");
+            },
+        });
+    }
+    function removewhishlist(wId, proId, name) {
+        Swal.fire({
+            title: 'Do you want to remove ' + name + ' from whishlist',
+            showDenyButton: true,
+            confirmButtonText: 'Remove',
+            denyButtonText: `Don't remove`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/removeWhishlistProduct',
+                    data: {
+                        wId: wId,
+                        proId: proId
+                    },
+                    method: 'post',
+                    success: function (response) {
+                        if (response.status) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: name + ' removed',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(() => {
+                                location.reload();
+                            })
+                        } else {
+                            Swal.fire('This product already in whishlist')
+                        }
+                    },
+                    error: function (err) {
+                        Swal.fire("Error!", "Something went wrong!", "error");
+                    },
+                })
+            }
+        })
+
+
+    }
+</script>

@@ -140,9 +140,11 @@ module.exports = {
         userId = objectId(userId)
         return new Promise(async (resolve, reject) => {
             let userCart = await db.get().collection(collection.CART).findOne({ user: userId })
+            console.log("user=====cart", userCart)
             if (userCart) {
 
                 let proExist = userCart.products.findIndex(product => product.item == productId)
+
                 if (proExist != -1) {
 
 
@@ -152,11 +154,13 @@ module.exports = {
                             $inc: { 'products.$.quantity': 1 }
                         }
                     ).then(() => {
-                        resolve()
+                        resolve({ status: false })
                     })
                 } else {
 
+
                     db.get().collection(collection.CART).updateOne({ user: userId }, { $push: { products: proObj } })
+                    resolve({ status: true })
                 }
             } else {
                 let cartObj = {
@@ -165,7 +169,10 @@ module.exports = {
                     discount: 0
                 }
                 db.get().collection(collection.CART).insertOne(cartObj)
-                resolve()
+                console.log("caartacartcartttttttttttttttttttt")
+                resolve({ status: true })
+
+
             }
         })
     },
@@ -616,7 +623,7 @@ module.exports = {
             ).toArray();
             if (pin.length == 0) {
                 reject()
-            }else{
+            } else {
                 resolve()
             }
 
@@ -630,6 +637,81 @@ module.exports = {
             console.log(pincode);
             // resolve(pincode)
         })
+    },
+    addtowhishlist: (productId, userId) => {
+        console.log("whisssssssssssssss", userId)
+        let proObj = {
+            item: objectId(productId),
+        }
+        userId = objectId(userId)
+
+        return new Promise(async (resolve, reject) => {
+            let userWhishlist = await db.get().collection(collection.WHISHLIST).findOne({ user: userId })
+            console.log("whisslisttttttt", userWhishlist)
+            if (userWhishlist) {
+
+                let proExist = userWhishlist.products.findIndex(product => product.item == productId)
+                if (proExist != -1) {
+                    reject()
+                } else {
+                    db.get().collection(collection.WHISHLIST).updateOne({ user: userId }, { $push: { products: proObj } })
+                    resolve()
+                }
+            } else {
+                let whishObj = {
+                    user: userId,
+                    products: [proObj],
+                }
+                db.get().collection(collection.WHISHLIST).insertOne(whishObj)
+                resolve()
+            }
+        })
+    },
+    getWhishlist: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            let whishlist = await db.get().collection(collection.WHISHLIST).aggregate([
+                {
+                    $match: { user: objectId(userId) }
+                },
+                {
+                    $unwind: '$products'
+                },
+                {
+                    $project: {
+                        item: '$products.item',
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.PRODUCT_DETAILS,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'product'
+                    }
+                }, {
+                    $project: {
+                        item: 1,
+                        product: { $arrayElemAt: ['$product', 0] }
+                    }
+                }
+            ]).toArray()
+
+            resolve(whishlist)
+        })
+    },
+    removeWhishlistProduct: (whishlist) => {
+        return new Promise((resolve, reject) => {
+
+            db.get().collection(collection.WHISHLIST).updateOne({ _id: objectId(whishlist.wId) },
+                {
+                    $pull: { products: { item: objectId(whishlist.proId) } }
+                }
+            ).then(() => {
+                resolve()
+            })
+
+        })
+
     }
 
 }

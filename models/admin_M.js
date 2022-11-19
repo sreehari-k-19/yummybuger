@@ -1,6 +1,7 @@
 const db = require('./connection')
 const collection = require('./collections')
 const { response } = require('express')
+const { ObjectId } = require('mongodb')
 const objectId = require('mongodb').ObjectId
 
 module.exports = {
@@ -12,14 +13,10 @@ module.exports = {
 
 
                 {
-                    $match: {
-                        $or: [{ orderstatus: "Delivered" }, { orderstatus: "placeOrder" }]
-
-
-                    }
-
-
-
+                    // $match: {
+                    //     $or: [{ orderstatus: "Delivered" }, { orderstatus: "placeOrder" }]
+                    // }
+                    $match: { orderstatus: "placeOrder" }
                 },
                 {
                     $group: { '_id': "$orderstatus", 'total': { '$sum': 1 } }
@@ -33,7 +30,7 @@ module.exports = {
                     $group: {
                         "_id": "_id",
                         "totalSale": {
-                            "$sum": { "$sum": "$totalamount" }
+                            "$sum": { "$sum": "$totalamount.total" }
                         },
                         "totalOrders": {
                             "$sum": { "$sum": "$products.quantity" }
@@ -41,12 +38,13 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            console.log("totall", orders);
-            console.log("ordersssssss", totalCustomers, totalProducts, totalSale[0].totalSale);
+            console.log("totall", orders[0].total);
+
             let countbox = {
                 totalCustomers: totalCustomers,
                 totalProducts: totalProducts,
-                totalSale: totalSale[0].totalSale
+                totalSale: totalSale[0].totalSale,
+                pendingOrders: orders[0].total
             }
             resolve(countbox)
         })
@@ -188,7 +186,7 @@ module.exports = {
                 { $match: { "orderstatus": "placeOrder" } },
                 {
                     $project: {
-                        date: { $convert: { input: "$_id", to: "date" } }, total: "$totalamount"
+                        date: { $convert: { input: "$_id", to: "date" } }, total: "$totalamount.total"
                     }
                 },
                 {
@@ -223,7 +221,7 @@ module.exports = {
                 { $match: { "orderstatus": "placeOrder" } },
                 {
                     $project: {
-                        date: { $convert: { input: "$_id", to: "date" } }, total: "$totalamount"
+                        date: { $convert: { input: "$_id", to: "date" } }, total: "$totalamount.total"
                     }
                 },
                 {
@@ -285,25 +283,86 @@ module.exports = {
             resolve(coupon)
         })
     },
-    deleteCoupon:(couponId)=>{
+    deleteCoupon: (couponId) => {
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.COUPON).deleteOne({ _id: objectId(couponId) }).then((deleteResponse) => {
                 resolve(deleteResponse)
             })
-        }) 
-    },
-    addpincode:(pin)=>{
-        return new Promise ((resolve,reject)=>{
-            db.get().collection(collection.PINCODE).insertOne(pin).then(() => {
-                resolve()
-            })  
         })
     },
-    getPincode:()=>{
+    addpincode: (pin) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.PINCODE).insertOne(pin).then(() => {
+                resolve()
+            })
+        })
+    },
+    getPincode: () => {
         return new Promise(async (resolve, reject) => {
             let pincode = await db.get().collection(collection.PINCODE).find().toArray()
             resolve(pincode)
         })
+    },
+    pincodeDelete: (id) => {
+        console.log()
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.PINCODE).deleteOne({ _id: ObjectId(id) }).then(() => {
+                resolve()
+            })
+        })
+    },
+    orderedProducts: (orderId) => {
+        return new Promise(async (resolve, reject) => {
+            let products = await db.get().collection(collection.ORDER).aggregate([
+                {
+                    $match:
+                    {
+                        _id: objectId(orderId)
+                    }
+                },
+                {
+                    $unwind: '$products'
+
+                },
+
+                {
+                    $project: {
+                        deliverydetails: "$deliverydetails",
+                        totalamount: "$totalamount",
+                        orderstatus: "$orderstatus",
+                        paymentmethod: "$paymentmethod",
+                        date: "$date",
+                        item: "$products.item",
+                        quantity: "$products.quantity"
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: collection.PRODUCT_DETAILS,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'products'
+                    }
+                },
+                {
+                    $project:
+                    {
+                        deliverydetails: "$deliverydetails",
+                        totalamount: "$totalamount",
+                        orderstatus: "$orderstatus",
+                        paymentmethod: "$paymentmethod",
+                        date: "$date",
+                        item: 1,
+                        quantity: 1,
+                        product: {
+                            $arrayElemAt: ["$products", 0]
+                        }
+                    }
+                }
+            ]).toArray();
+            resolve(products)
+        })
     }
-    
+
 }

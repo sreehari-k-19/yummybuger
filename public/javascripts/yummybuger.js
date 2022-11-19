@@ -119,3 +119,19 @@ $(document).ready(function() {
 //     },
 // });
 
+function getwhishlist(){
+    $.ajax({
+        url: '/getwhishlist',
+        method: 'get',
+        success: function (response) {
+            if (response.status) {
+                window.location.href="/whishlist"
+            } else {
+                Swal.fire('your whishlist empty')
+            }
+        },
+        error: function (err) {
+            Swal.fire("Error!", "Something went wrong!", "error");
+        },
+    })
+}

@@ -5,5 +5,6 @@ module.exports={
     CART:'cart',
     ORDER:'orderDetails',
     COUPON:'coupons',
-    PINCODE:'pincode'
+    PINCODE:'pincode',
+    WHISHLIST:'whishlist'
 }

@@ -171,27 +171,39 @@ module.exports = {
         })
     },
     addCoupon: (req, res) => {
-        
+
         models.addCoupon(req.body).then(() => {
             res.json({ status: true })
         })
     },
     deleteCoupon: (req, res) => {
-        
+
         let couponId = req.params.id;
         models.deleteCoupon(couponId).then((response) => {
             res.redirect('/admin/coupon')
         })
     },
     pincode: (req, res) => {
-        models.getPincode().then((pincode)=>{
-            res.render('admin/pincode',{user:false,pincode:pincode})
+        models.getPincode().then((pincode) => {
+            res.render('admin/pincode', { user: false, pincode: pincode })
         })
     },
     addpincode: (req, res) => {
-       console.log("pinnnnnnnnnnnn",req.body)
-       models.addpincode(req.body).then((response)=>{
-        res.redirect('/admin/pincode')
-       })
-   }
+        console.log("pinnnnnnnnnnnn", req.body)
+        models.addpincode(req.body).then((response) => {
+            res.redirect('/admin/pincode')
+        })
+    },
+    pincodeDelete: (req, res) => {
+        models.pincodeDelete(req.body.id).then(() => {
+            res.json({ status: true })
+        })
+    },
+    orderedProducts: (req, res) => {
+        models.orderedProducts(req.params.id).then((details) => {
+            console.log(details)
+            res.render('admin/orderDetails', { user: false, order: details })
+
+        })
+    }
 }
