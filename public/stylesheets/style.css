@@ -499,11 +499,20 @@ input::-webkit-inner-spin-button {
 }
 
 .image--cover {
-    width: 28px;
-    height: 28px;
+    margin: 0px 5px 5px 5px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     object-position: center right;
+}
+@media only screen and (max-width: 600px) {
+    .image--cover {
+        margin: 0;
+        width: 28px;
+        height: 28px;
+      
+    }
 }
 
 

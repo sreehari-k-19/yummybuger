@@ -7,6 +7,7 @@ const objectId = require('mongodb').ObjectId
 const Razorpay = require("razorpay")
 const { resolve } = require('path')
 const { log } = require('console')
+const { resolveCaa } = require('dns')
 var instance = new Razorpay({
     key_id: 'rzp_test_vKo6XcqfARa4uS',
     key_secret: 'gfdd5UH35ZRN49JHXTZpbsjs',
@@ -87,6 +88,18 @@ module.exports = {
             }).then((response) => {
 
                 resolve();
+            })
+        })
+    },
+    userProfileimg: (userId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.USER_DETAILS).findOne({ _id: objectId(userId) }).then((user) => {
+                if (user?.profileimage){
+                    resolve(user.profileimage)
+                     console.log("ussssssssssssssrrrrrrrrrrr", user)
+                }else{
+                    resolve()
+                }
             })
         })
     },

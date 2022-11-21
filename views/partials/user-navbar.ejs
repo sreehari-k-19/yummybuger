@@ -21,7 +21,7 @@
                             <div>
                                 <a href="/profile">
                                     <div>
-                                        <i  class="bi bi-person-circle"></i>
+                                        <i class="bi bi-person-circle"></i>
                                     </div>
                                     <div class="prfnt">Profile</div>
                                 </a>
@@ -29,9 +29,9 @@
                         </li>
                         <li>
                             <div>
-                                <a href="#">
+                                <a href="#footer">
                                     <div>
-                                        <i  class="bi bi-info-circle"></i>
+                                        <i class="bi bi-info-circle"></i>
                                     </div>
                                     <div class="prfnt">About</div>
                                 </a>
@@ -52,25 +52,31 @@
         </div>
         <div>
             <div class="nav-right">
-                <div class="px-3" onclick="getwhishlist()"><i  class="bi bi-heart-fill"></i>
-                    
+                <div class="px-3" onclick="getwhishlist()"><i class="bi bi-heart-fill"></i>
+
                 </div>
-                <div class="px-3 cart-nav"><a href="/cart"><i  class="bi bi-basket-fill"></i><span
+                <div class="px-3 cart-nav"><a href="/cart"><i class="bi bi-basket-fill"></i><span
                             class="badge bg-success" id="cart-count">
                             <%= cartCount %>
                         </span></a></div>
-                <div class="px-3" data-bs-toggle="modal" data-bs-target="#signupform">
+                <div class="px-3">
                     <% if(userAccount){ %>
-                        <img src="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg"
-                            alt="" class="image--cover" />
-                        <a class="mx-2" href="/logout"><i style="background:  #FFBA00;;
+                        <% if(userProfileimg){ %>
+                            <img src="../../profile/<%= userProfileimg %>"
+                                alt="" class="image--cover" />
+                            <% } else { %>
+                                <img src="../../images/profile icon.png"
+                                    alt="" class="image--cover" />
+                                <% } %>
+                                    <a class="mx-2" href="/logout"><i style="background:  #FFBA00;;
                             padding: 5px;
                             border-radius: 7px;
-                            color: black;"  class="bi bi-box-arrow-left"></i></a>
+                            color: black;" class="bi bi-box-arrow-left"></i></a>
 
-                        <% } else { %>
-                            <i  class="bi bi-person-circle"></i>
-                            <% } %>
+                                    <% } else { %>
+                                        <span data-bs-toggle="modal" data-bs-target="#signupform">
+                                            <i class="bi bi-person-circle"></i></span>
+                                        <% } %>
                 </div>
             </div>
 

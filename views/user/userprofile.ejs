@@ -50,19 +50,19 @@
                         <div class="py-2 update-profile">
                             <div class="row py-2">
                                 <div class="col-md-6">
-                                    <label for="firstname">First Name</label>
+                                    <label for="firstname" style="color: #fff;">First Name</label>
                                     <input type="text" class=" form-control" id="prf-name" placeholder=""
                                         value="<%= userDetails.name%>">
                                 </div>
                                 <div class="col-md-6 pt-md-0 pt-3">
-                                    <label for="phone">Phone Number</label>
+                                    <label for="phone"  style="color: #fff;">Phone Number</label>
                                     <input type="tel" class=" form-control" id="prf-number" placeholder=""
                                         value="<%= userDetails.number%>">
                                 </div>
                             </div>
                             <div class="row py-2">
                                 <div class="col-md-6">
-                                    <label for="email">Email Address</label>
+                                    <label for="email"  style="color: #fff;">Email Address</label>
                                     <input type="email" class=" form-control" placeholder=""
                                         value="<%= userDetails.email%>" id="prf-email">
                                 </div>
@@ -165,7 +165,7 @@
                                                     <div class="row">
                                                         <div class="col-7">
                                                             <span id="heading">Date</span><br>
-                                                            <span id="details">10 October 2018</span>
+                                                            <span id="details"><%= order.date.toLocaleString() %></span>
                                                         </div>
                                                         <div class="col-5 pull-right">
                                                             <span id="heading">Order Status.</span><br>
@@ -194,7 +194,7 @@
                                                                     <span id="name">subtotal</span>
                                                                 </div>
                                                                 <div class="col-3">
-                                                                    <span id="price">&pound;<%=order.totalamount.total +
+                                                                    <span id="price"><i class="bi bi-currency-rupee"></i><%=order.totalamount.total +
                                                                             order.totalamount.discount %></span>
                                                                 </div>
                                                             </div>
@@ -203,7 +203,7 @@
                                                                     <span id="name">Discount</span>
                                                                 </div>
                                                                 <div class="col-3">
-                                                                    <span id="price">&pound;
+                                                                    <span id="price"><i class="bi bi-currency-rupee"></i>
                                                                         <%=order.totalamount.discount %>
                                                                     </span>
                                                                 </div>
@@ -212,11 +212,11 @@
                                                 <div class="total">
                                                     <div class="row">
                                                         <div class="col-9"></div>
-                                                        <div class="col-3"><big>&pound;<%=order.totalamount.total %>
+                                                        <div class="col-3"><big><i class="bi bi-currency-rupee"></i><%=order.totalamount.total %>
                                                             </big></div>
                                                     </div>
                                                 </div>
-                                                <div class="tracking">
+                                                <!-- <div class="tracking">
                                                     <div class="title">Tracking Order</div>
                                                 </div>
                                                 <div class="progress-track">
@@ -226,7 +226,7 @@
                                                         <li class="step0 active text-right" id="step3">On the way</li>
                                                         <li class="step0  text-right" id="step4">Delivered</li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <%})%>
@@ -239,6 +239,7 @@
             </div>
             <!-- /.swichtab-contents -->
         </div>
+        <%- include('../partials/user-footer.ejs') %>
 </section>
 <button type="button" id="addresseditm" style="display: none;" class="btn btn-primary" data-bs-toggle="modal"
     data-bs-target="#categoryModal" data-bs-whatever="@mdo">sss</button>
@@ -330,7 +331,9 @@
             </div>
         </div>
     </div>
+    
 </div>
+<script src="/javascripts/jquery.MultiFile.js"></script>
 <script src="../../javascripts/switchtab.js"></script>
 
 <script type="text/javascript">
@@ -341,7 +344,8 @@
         index: 2,
     });
 </script>
-
+  
+     
 <script>
     $(document).ready(function () {
         $("#cropzee-input").cropzee({ startSize: [85, 85, '%'], });
@@ -377,7 +381,7 @@
 
     }
     function editaddress(i) {
-        alert(i)
+       
         $.ajax({
             url: '/editaddress/' + i,
             method: "get",
@@ -429,9 +433,7 @@
                                 location.reload();
                             })
 
-                        } else {
-                            alert("noooooo")
-                        }
+                        } 
 
                     },
                     error: function (err) {
@@ -514,7 +516,7 @@
                     },
                     method: 'get',
                     success: function (response) {
-                        alert(response)
+                        
                         if (response.status) {
 
                             Swal.fire({

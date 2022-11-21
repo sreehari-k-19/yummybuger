@@ -35,10 +35,10 @@
                         </div>
 
                     </div>
-                    <div class="order-details-headbox">
+                    <!-- <div class="order-details-headbox">
                         <h4>Address</h4>
                         <p></p>
-                    </div>
+                    </div> -->
                     <div class="order-details-headbox">
                         <h4>Status</h4>
                         <p style="font-size:22px; color: red;font-weight: 800;">
@@ -75,8 +75,9 @@
 
                         <% order.forEach(function(order){ %>
                             <div class="order-product-details-box">
+
                                 <div class="order-product-details-img">
-                                    <img src="../../images/burger1.png">
+                                    <img src="../../uploads/<%= order.product.images[0] %>">
                                 </div>
                                 <div class="nqp mx-4 my-2">
                                     <p>

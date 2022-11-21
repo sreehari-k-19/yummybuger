@@ -39,14 +39,20 @@ module.exports = {
   //   }
   // },
   home: async (req, res) => {
-    let cartCount = 0;
+    let cartCount = null;
+    let userProfileimg;
     if (res.locals.activeUser) {
       cartCount = await models.getCartCount(res.locals.activeUser.id)
+      userProfileimg = await models.userProfileimg(res.locals.activeUser.id)
       cartCount = cartCount?.products.length
     }
-    console.log(cartCount, "crtcuntttttttttttttttttttttt")
+    if (cartCount == null) {
+      cartCount = 0;
+    }
+   
+    console.log(cartCount,userProfileimg, "crtcuntttttttttttttttttttttt")
     models.fetchProductList().then((products) => {
-      res.render('user/home', { title: 'yummyburger', user: true, userAccount: res.locals.activeUser, products: products, cartCount: cartCount });
+      res.render('user/home', { title: 'yummyburger', user: true, userAccount: res.locals.activeUser, products: products, cartCount: cartCount ,userProfileimg:userProfileimg});
     })
   },
   notLogin: (req, res) => {
@@ -130,11 +136,12 @@ module.exports = {
     })
   },
   userProfile: (req, res) => {
+    console.log("prfllllllllllllll")
     console.log("prfllllllllllllll", req.file.filename);
 
     console.log("prfllllllllllllll", res.locals.activeUser.id);
     models.addprofile(req.file.filename, res.locals.activeUser.id).then((response) => {
-
+      res.redirect('/profile')
     })
 
   },
@@ -202,12 +209,13 @@ module.exports = {
   },
   productview: async (req, res) => {
     let cart = await models.getCartCount(res.locals.activeUser.id);
+    let  userProfileimg = await models.userProfileimg(res.locals.activeUser.id)
     let cartCount = 0
     cartCount = cart?.products.length;
     console.log("idddd", req.params.id);
     let product = await models.getProduct(req.params.id)
     console.log(product);
-    res.render('user/product-view', { user: true, userAccount: res.locals.activeUser, product: product, cartCount: cartCount })
+    res.render('user/product-view', { user: true, userAccount: res.locals.activeUser, product: product, cartCount: cartCount,userProfileimg :userProfileimg  })
 
   },
   cart: async (req, res) => {
@@ -216,18 +224,18 @@ module.exports = {
     let cartTotal = 0;
     cartTotal = await models.cartTotalprice(res.locals.activeUser.id)
     cartCount = await models.getCartCount(res.locals.activeUser.id)
+    let  userProfileimg = await models.userProfileimg(res.locals.activeUser.id)
     cartCount = cartCount?.products.length;
     console.log("cartcounrttttttttttttt", cartCount, cartTotal)
-    if (cartTotal === 0) {
+    if (cartTotal == 0) {
       let cartCount = 0;
-      res.render('user/emptycart', { user: true, userAccount: res.locals.activeUser, cartCount: cartCount })
+      res.render('user/emptycart', { user: true, userAccount: res.locals.activeUser, cartCount: cartCount,userProfileimg:userProfileimg })
     } else {
       cartTotal = await models.cartTotalprice(res.locals.activeUser.id)
       console.log("carttotal", cartTotal)
       let cartItems = await models.getCartDetails(res.locals.activeUser.id)
-
-      console.log("............... cart total", cartCount)
-      res.render("user/usercart", { user: true, userAccount: res.locals.activeUser, cartCount: cartCount, cartItems: cartItems, cartTotal: cartTotal })
+      console.log("............... cart total", cartCount, cartItems)
+      res.render("user/usercart", { user: true, userAccount: res.locals.activeUser, cartCount: cartCount, cartItems: cartItems, cartTotal: cartTotal,userProfileimg:userProfileimg })
     }
 
   },
@@ -253,6 +261,7 @@ module.exports = {
     let cart = null;
     cart = await models.getCartCount(res.locals.activeUser.id)
     cartTotal = await models.getTotalAmount(res.locals.activeUser.id)
+    let  userProfileimg = await models.userProfileimg(res.locals.activeUser.id)
     let cartItems = await models.getCartDetails(res.locals.activeUser.id)
 
     console.log(cartTotal, "jjjjjjjjjjjjjjjjjjjj");
@@ -261,7 +270,7 @@ module.exports = {
     console.log('cartconttttttttttt', cartCount, cart.discount);
     let userAddress = await models.getAddress(res.locals.activeUser.id)
     console.log(userAddress.savedaddress)
-    res.render("user/checkout", { user: true, userAccount: res.locals.activeUser, cartTotal: cartTotal, address: userAddress.savedaddress, cartCount: cartCount, cartItems: cartItems })
+    res.render("user/checkout", { user: true, userAccount: res.locals.activeUser, cartTotal: cartTotal, address: userAddress.savedaddress, cartCount: cartCount, cartItems: cartItems,userProfileimg :userProfileimg  })
 
   },
   placeOrder: async (req, res) => {
@@ -336,13 +345,18 @@ module.exports = {
     })
   },
   getuserDetails: async (req, res) => {
-
+    let cartCount = 0;
     let cart = await models.getCartCount(res.locals.activeUser.id);
-    let cartCount = cart.products.length;
+    let  userProfileimg = await models.userProfileimg(res.locals.activeUser.id)
+
+    cartCount = cart?.products.length;
+    if (cart == null) {
+      cartCount = 0;
+    }
     let orders = await models.getAllOrder(res.locals.activeUser.id)
     models.getAddress(res.locals.activeUser.id).then((response) => {
       console.log("serprofile", response)
-      res.render('user/userprofile', { user: true, userDetails: response, orders: orders, userAccount: res.locals.activeUser, cartCount: cartCount })
+      res.render('user/userprofile', { user: true, userDetails: response, orders: orders, userAccount: res.locals.activeUser, cartCount: cartCount,userProfileimg :userProfileimg  })
     })
   },
   updateuserDetails: (req, res) => {
@@ -412,10 +426,11 @@ module.exports = {
       if (whishlist.length == 0) {
         res.redirect('/')
       } else {
-        let cartCount=0
+        let cartCount = 0
         cartCount = await models.getCartCount(res.locals.activeUser.id)
+        let  userProfileimg = await models.userProfileimg(res.locals.activeUser.id)
         cartCount = cartCount?.products.length;
-        res.render("user/whishlist", { user: true, whishlists: whishlist ,cartCount:cartCount,userAccount: res.locals.activeUser})
+        res.render("user/whishlist", { user: true, whishlists: whishlist, cartCount: cartCount, userAccount: res.locals.activeUser,userProfileimg:userProfileimg })
       }
     })
   },
