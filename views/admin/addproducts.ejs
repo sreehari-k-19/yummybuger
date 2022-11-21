@@ -16,6 +16,7 @@
                     <div class="add-product-form">
                         <label>Name</label>
                         <input type="text" name="productname" style="text-transform: uppercase;" required>
+                       
                         <div style="display: flex;">
                             <div>
                                 <label>Price</label>
@@ -23,9 +24,10 @@
                             </div>
 
                             <div>
-                                <label>Stock</label>
-                                <input style="width:95%;margin-left: 5px;" type="text" name="stock" required>
-                            </div>
+                                <label>Offer</label>
+                        <input type="number" name="offer"  required>
+                    
+              </div>
 
 
                         </div>
@@ -40,6 +42,9 @@
 
                              <%}); %>
                         </select>
+                        <!-- <label>Stock</label>
+                        <input style="width:95%;margin-left: 5px;" type="text" name="stock" required>
+                   -->
                         <label>description</label>
                         <textarea name="desription"></textarea>
                     </div>
@@ -146,7 +151,7 @@
                             showConfirmButton: false,
                             timer: 2000
                         }).then(() => {
-                            window.location.href = '/admin/productlist';
+                            window.location.href = '/admin/addproduct';
                         })
 
                     }

@@ -135,3 +135,30 @@ function getwhishlist(){
         },
     })
 }
+function addtowhishlist(id) {
+
+    $.ajax({
+        url: '/addtowhishlist',
+        data: {
+            proId: id
+        },
+        method: 'post',
+        success: function (response) {
+            if (response.status) {
+            
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'add to whishlist',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                Swal.fire('This product already in whishlist')
+            }
+        },
+        error: function (err) {
+            Swal.fire("Error!", "Something went wrong!", "error");
+        },
+    })
+}

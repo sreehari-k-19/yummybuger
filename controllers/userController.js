@@ -42,9 +42,9 @@ module.exports = {
     let cartCount = 0;
     if (res.locals.activeUser) {
       cartCount = await models.getCartCount(res.locals.activeUser.id)
-      cartCount =cartCount.products.length
+      cartCount = cartCount?.products.length
     }
-    console.log(cartCount,"crtcuntttttttttttttttttttttt")
+    console.log(cartCount, "crtcuntttttttttttttttttttttt")
     models.fetchProductList().then((products) => {
       res.render('user/home', { title: 'yummyburger', user: true, userAccount: res.locals.activeUser, products: products, cartCount: cartCount });
     })
@@ -185,7 +185,6 @@ module.exports = {
     })
   },
   sendOtp: (req, res) => {
-    console.log(req.body.phoneNumber);
     client.verify.v2
       .services(process.env.TWILIO_SERVICE_SID)
       .verifications.create({
@@ -203,7 +202,8 @@ module.exports = {
   },
   productview: async (req, res) => {
     let cart = await models.getCartCount(res.locals.activeUser.id);
-    let cartCount = cart.products.length;
+    let cartCount = 0
+    cartCount = cart?.products.length;
     console.log("idddd", req.params.id);
     let product = await models.getProduct(req.params.id)
     console.log(product);
@@ -212,10 +212,11 @@ module.exports = {
   },
   cart: async (req, res) => {
     console.log(res.locals.activeUser)
-    let cartCount = null;
+    let cartCount = 0;
     let cartTotal = 0;
     cartTotal = await models.cartTotalprice(res.locals.activeUser.id)
     cartCount = await models.getCartCount(res.locals.activeUser.id)
+    cartCount = cartCount?.products.length;
     console.log("cartcounrttttttttttttt", cartCount, cartTotal)
     if (cartTotal === 0) {
       let cartCount = 0;
@@ -224,7 +225,7 @@ module.exports = {
       cartTotal = await models.cartTotalprice(res.locals.activeUser.id)
       console.log("carttotal", cartTotal)
       let cartItems = await models.getCartDetails(res.locals.activeUser.id)
-      cartCount = cartCount.products.length;
+
       console.log("............... cart total", cartCount)
       res.render("user/usercart", { user: true, userAccount: res.locals.activeUser, cartCount: cartCount, cartItems: cartItems, cartTotal: cartTotal })
     }
@@ -407,11 +408,14 @@ module.exports = {
     })
   },
   whishlist: (req, res) => {
-    models.getWhishlist(res.locals.activeUser.id).then((whishlist) => {
+    models.getWhishlist(res.locals.activeUser.id).then(async (whishlist) => {
       if (whishlist.length == 0) {
         res.redirect('/')
       } else {
-        res.render("user/whishlist", { user: true, whishlists: whishlist })
+        let cartCount=0
+        cartCount = await models.getCartCount(res.locals.activeUser.id)
+        cartCount = cartCount?.products.length;
+        res.render("user/whishlist", { user: true, whishlists: whishlist ,cartCount:cartCount,userAccount: res.locals.activeUser})
       }
     })
   },

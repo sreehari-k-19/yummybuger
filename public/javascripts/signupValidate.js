@@ -2,13 +2,14 @@
 // console.log($("#signupForm").serialize()+'&'+$("#signupForm").serialize())
 function sendOtp() {
     let phoneNumber = document.getElementById('phone-number').value
-    console.log(phoneNumber);
+    
     $.ajax({
         url: '/sendotp',
         method: 'post',
         data: { "phoneNumber": phoneNumber },
         success: (response) => {
             // location.reload(); 
+           alert("ressssss")
             document.getElementById('user-name').style.display = "none"
             document.getElementById('user-email').style.display = "none"
             document.getElementById('user-phn').style.display = "none"

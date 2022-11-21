@@ -84,7 +84,7 @@ module.exports = {
         console.log(req.body)
         models.addProductDetails(req.body).then((response) => {
             console.log(response)
-            res.redirect('/admin/addproduct')
+            res.redirect('/admin/productlist')
         })
     },
     addCategory: (req, res) => {
@@ -128,7 +128,7 @@ module.exports = {
         })
     },
     updateProduct: (req, res) => {
-        // console.log("asfkjsdfa.....asfasf........af",req.body)
+         console.log("asfkjsdfa.....asfasf........af",req.body)
         // console.log("asfkjsdfa.....asfasf........af",req.files)
         let image = []
         for (let i = 0; i < req.files.length; i++) {

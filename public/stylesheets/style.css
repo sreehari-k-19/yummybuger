@@ -922,6 +922,7 @@ input::-webkit-inner-spin-button {
 }
 
 .menu-image img {
+    padding: 20px;
     transition: 0.5s all ease-in-out;
 }
 

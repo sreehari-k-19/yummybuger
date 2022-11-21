@@ -156,7 +156,7 @@
         margin: 1.5rem 0;
         border-radius: 14px;
         background-color: #000;
-        padding: 10px;
+        padding: 15px;
     }
 
     .purchase-info input,
@@ -302,49 +302,67 @@
                     </div>
                     <!-- card right -->
                     <div class="product-content">
-                        <h2 class="product-title">
+                        <h2 class="product-title mb-5">
                             <%= product.productname %>
                         </h2>
-                        <a href="#" class="product-link">Chicken burger</a>
-
-                        <div class="product-price">
-                            <p class="new-price">New Price: <span>
-                                    <%= product.price %>
-                                </span></p>
-                        </div>
-
-                        <div class="product-detail">
-                            <h2>about this item: </h2>
-                            <p>
-                                <%= product.desription %>
-                            </p>
-                            <ul>
-                                <li>Category: <span>Shoes</span></li>
-                                <li>Shipping Fee: <span>Free</span></li>
-                            </ul>
-                        </div>
-
-                        <div class="purchase-info">
-                            <div style="display: flex; justify-content:space-around;align-items: center;">
-                                <div>
-
-                                    <div><span style="color: #fff;margin-right: 3px;">Qty:</span>
-                                        <a class="qty-btn"><span style="font-size: 22px;">-</span></a>
-                                        <input type="text">
-                                        <a class="qty-btn"><span style="font-size: 22px;">+</span></a>
+                        <!-- <a href="#" class="product-link">Chicken burger</a> -->
+                        <% if( product.offer==0 ){ %>
+                            <div class="product-price">
+                                <p class="new-price">Price: <span>
+                                    <i class="bi bi-currency-rupee"></i><%= product.price %>
+                                    </span></p>
+                            </div>
+                            <% } else{ %>
+                               <s style="color:red;"> <div class="product-price">
+                                    <p class="new-price"> Price: <span>
+                                        <i class="bi bi-currency-rupee"></i> <%= product.price %>
+                                        </span></p>
+                                </div></s>
+                                <div class="product-price">
+                                    <p class="new-price">New Price: <span>
+                                        <i class="bi bi-currency-rupee"></i> <%= product.totalprice %>
+                                        </span></p>
+                                </div>
+                                <% } %>
+                                    <div class="product-detail">
+                                        <h2>about this item: </h2>
+                                        <p>
+                                             <%= product.desription %>
+                                        </p>
+                                        <!-- <ul>
+                                            <li>Category: <span>Shoes</span></li>
+                                            <li>Shipping Fee: <span>Free</span></li>
+                                        </ul> -->
                                     </div>
 
+                                    <div class="purchase-info">
+                                        <div style="display: flex; justify-content:space-around;align-items: center;">
+                                            <!-- <div>
 
-                                </div>
-                                <div>
-                                    <a href="" onclick="addtoCart('<%= product._id %>','<%= product.productname %>')" class="product-cart-btn">Add to cart</a>
-                                </div>
+                                                <div><span style="color: #fff;margin-right: 3px;">Qty:</span>
+                                                    <a class="qty-btn"><span style="font-size: 22px;">-</span></a>
+                                                    <input type="text">
+                                                    <a class="qty-btn"><span style="font-size: 22px;">+</span></a>
+                                                </div>
 
-                            </div>
-                            <div>
 
-                            </div>
-                        </div>
+                                            </div> -->
+                                            <div>
+                                                <span
+                                                onclick="addtowhishlist('<%= product._id %>')"
+                                                    class="product-cart-btn"><i class="bi bi-heart"></i></span>
+                                            </div>
+                                            <div>
+                                                <a href=""
+                                                    onclick="addtoCart('<%= product._id %>','<%= product.productname %>')"
+                                                    class="product-cart-btn"><i class="bi bi-basket-fill"></i></a>
+                                            </div>
+
+                                        </div>
+                                        <div>
+
+                                        </div>
+                                    </div>
 
                     </div>
                 </div>

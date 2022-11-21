@@ -78,9 +78,13 @@ module.exports = {
         })
     },
     addProductDetails: (productDetails) => {
-        console.log("productdetils",)
+        console.log("productdetils",productDetails)
         productDetails.price = parseInt(productDetails.price)
-        productDetails.stock = parseInt(productDetails.stock)
+        // productDetails.stock = parseInt(productDetails.stock)
+        productDetails.offer=parseInt(productDetails.offer)
+        productDetails.totalprice=productDetails.price - productDetails.offer
+        console.log("productdetils",productDetails)
+
         return new Promise(async (resolve, reject) => {
             productDetails.categoryId = objectId(productDetails.categoryId);
             console.log("productDetails", productDetails)
@@ -146,15 +150,18 @@ module.exports = {
     updateProduct: (proId, productDetails) => {
         console.log("dffsfklsdfjksdal;k", productDetails)
         productDetails.price = parseInt(productDetails.price)
-        productDetails.stock = parseInt(productDetails.stock)
+        // productDetails.stock = parseInt(productDetails.stock)
+        productDetails.offer = parseInt(productDetails.offer)
+        productDetails.totalprice=productDetails.price - productDetails.offer
         productDetails.categoryId = objectId(productDetails.categoryId);
         return new Promise((resolve, reject) => {
             db.get().collection(collection.PRODUCT_DETAILS).updateOne({ _id: objectId(proId) }, {
                 $set: {
                     productname: productDetails.productname,
                     price: productDetails.price,
-                    stock: productDetails.stock,
-                    desription: productDetails.desription
+                    offer: productDetails.offer,
+                    desription: productDetails.desription,
+                    totalprice:productDetails.totalprice
                 }
             })
             db.get().collection(collection.PRODUCT_DETAILS).updateOne({ _id: objectId(proId) }, { $push: { images: { $each: productDetails.images } } })
