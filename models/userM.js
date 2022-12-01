@@ -601,13 +601,17 @@ module.exports = {
                     reject({ status: "This coupon need more totalamount" })
                 } else {
                     console.log(Coupon)
+                    let couponoffer=((Coupon[0].couponamount*total)/100).toFixed(2);
+                    couponoffer=parseFloat(couponoffer)
+                    console.log("offffffffffffppppppppppppppp",couponoffer)
+
                     db.get().collection(collection.CART).updateOne({ user: objectId(userId) }, {
                         $set: {
-                            discount: Coupon[0].couponamount
+                            discount:couponoffer
                         }
                     }).then((response) => {
                         console.log("rsrsrsrrsrrsrsrsrsrs");
-                        resolve()
+                        resolve(Coupon[0].couponamount)
                     })
 
                 }

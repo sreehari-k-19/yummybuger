@@ -235,7 +235,7 @@
                                             <h6>Discount</h6>
                                         </div>
                                         <div>
-                                            <h6 id="discountprice">Rs<%= cartTotal.discount %>
+                                            <h6 id="discountprice">Rs<%= parseInt((cartTotal.discount/(cartTotal.discount+cartTotal.total))*100) %>
                                             </h6>
                                         </div>
                                     </div>
@@ -263,7 +263,7 @@
                                                 <h6>Discount</h6>
                                             </div>
                                             <div>
-                                                <h6 id="discountprice">Rs <%= cartTotal.discount %>
+                                                <h6 id="discountprice"> <%= parseInt((cartTotal.discount/(cartTotal.discount+cartTotal.total))*100) %>%
                                                 </h6>
                                             </div>
                                         </div>
@@ -284,7 +284,7 @@
                 </div>
             </div>
         </div>
-        <%- include('../partials/user-footer.ejs') %>
+       
 </div>
 <script>
 
@@ -784,7 +784,7 @@
                     document.getElementById('subtotaldiv').style.display = 'flex'
                     document.getElementById('discountpricediv').style.display = 'flex'
                     document.getElementById('subtotal').innerHTML = n
-                    document.getElementById('discountprice').innerHTML = response.discount
+                    document.getElementById('discountprice').innerHTML = response.discount+"%"
                     document.getElementById('totalamnt').innerHTML = response.total
 
                     Swal.fire('Coupon Added',

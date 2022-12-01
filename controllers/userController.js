@@ -392,8 +392,10 @@ module.exports = {
     console.log("cpnnnnnnnnnnnnnnn", req.body)
     let totalamount = await models.getTotalAmount(res.locals.activeUser.id)
     console.log("tooooooooooooooooo", totalamount)
-    models.checkcoupons(req.body.coupon, res.locals.activeUser.id, totalamount.total).then((response) => {
+    models.checkcoupons(req.body.coupon, res.locals.activeUser.id, totalamount.total).then((cpnper) => {
       models.getTotalAmount(res.locals.activeUser.id).then((response) => {
+        // let cpnoffer=(response.total+response.discount)
+        response.discount=cpnper;
         console.log("tttmtmtmtmtmtmtmtmttmtm", response);
         res.json(response)
       })
